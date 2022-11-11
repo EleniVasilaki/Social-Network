@@ -8,7 +8,7 @@ import java.lang.Math;
 
 public class Interaction {
     // Initialising interaction and id and other attributes for our comment object.
-    String ,comment,like,share,report;
+    String comment, like, share, report;
     static int id;
 
     // Creating method that reads the interactions data from the interactions-data.txt database file.
@@ -75,10 +75,10 @@ public class Interaction {
                 + "\n";
     }
 
-    // Function that returns all interaction commnets in a nice format.
+    // Function that returns all interaction comments in a nice format.
     public static String allCommments() {
         String c = "";
-        for (int i = 0; i <= comment.size() - 1; i++) {
+        for (int i = 0; i <= comments.size() - 1; i++) {
             c += "ID: " + i + " Comment: " + comment.get(i) + "\n \n";
         }
         return c;
