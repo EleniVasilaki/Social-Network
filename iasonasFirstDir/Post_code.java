@@ -5,12 +5,15 @@ public class Post_code {
 		Scanner input = new Scanner(System.in);
 		System.out.println("click 1 to create a post" + "\n" + "click 2 to delete an owned post" + "\n" + "click 3 to edit an owned post");
 		int number = input.nextInt();
+		Create_Post CP = new Create_Post();
+		Delete_Post DP = new Delete_post();
+		Edit_post	EP = new Edit_post();
    	 	if (number == 1) {
-			Create_post.some_method();
+			CP.createPostMethod();
 		}else if (number == 2); {
-			Delete_post.some_method2();
+			DP.some_method2();
 		} else {
-			Edit_post.some_method3();
+			EP.some_method3();
 		}
 	}
 }

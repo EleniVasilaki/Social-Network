@@ -10,6 +10,7 @@ public  class Create_post extends Post_code{
         System.out.println("click 1 to add a description to your post" + "\n" + "click 2 to add text/link for your post"); // more options
         int option = in.nextInt();
         if (option == 1) {
+            System.out.println("Please enter your description:");
             Scanner scan = new Scanner(System.in);
             String description = scan.next();
             try {
