@@ -1,0 +1,43 @@
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+File myPostId = new File("Postid_data.txt");//initialize File
+try {
+    boolean value = myPostId.createNewFile();
+    if (value) {
+        System.out.println("File created: " + myPostId.getCanonicalPath());
+    } else {
+        System.out.println("File already exists at location: " + myPostId.getCanonicalPath());
+    }
+    }
+catch (IOException e) {
+    e.printStackTrace();
+}
+// arraylist to store strings
+        ArrayList<String> postIds = new ArrayList<String>();
+       
+        // load content of file based on specific delimiter
+        Scanner sc = new Scanner(new FileReader("Postid_data.txt")).useDelimiter(",\\s*");
+        String str;
+       
+        // checking end of file
+        while (sc.hasNext()) {
+            str = sc.next();
+           
+            // adding each string to arraylist
+            postIds.add(str);
+        }
+       
+        // convert any arraylist to array
+        String[] array = postIds.toArray(new String[0]);
+       
+        // print each string in array
+        for (String eachpostId : array) {
+            System.out.println(eachpostId);
+        }
+    }
+}
+   

@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.io.File;
+import java.util.Date; 
+
+public class PostID {
+
+    private String authorid;
+    private Timestamp time
+    
+
+    public PostID(String authorid, Timestamp time) {
+        this.authorid = authorid;
+        this.time = time;
+    }
+    
+    public String getAuthorid(){
+        return authorid;
+    }
+    
+    public void setAuthorid(String id){
+        authorid = id
+     }
+
+    public Timestamp getTime(){
+        return time;
+    }
+    
+    public void setTime(Timestamp t){
+        time = t;
+
+    }
+    
+    public void checkIdCompatibility() {
+        if(authorid == )
+
+        }
+
+
+    }
+
+
+}
