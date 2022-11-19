@@ -11,8 +11,7 @@ public  class Create_post extends Post_code{
         int option = in.nextInt();
         if (option == 1) {
             System.out.println("Please enter your description:");
-            Scanner scan = new Scanner(System.in);
-            String description = scan.next();
+            String description = in.next();
             try {
                 BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt"));
                 writer.write(description);
@@ -20,11 +19,16 @@ public  class Create_post extends Post_code{
             } catch (IOException e) {
                 e.printStackTrace();
             } 
-            scan.close();
         }
-
+        System.out.println("Please insert link:");
+        String userPost = in.next();
+        try {
+            BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt"));
+            writer.write(userPost);
+            writer.close();
+            } catch (IOException e) {
+            e.printStackTrace();
+        } 
+        in.close();
     }
-
-   
-
 }
