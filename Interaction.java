@@ -8,7 +8,10 @@ import java.lang.Math;
 
 public class Interaction {
     // Initialising interaction and id and other attributes for our comment object.
-    String comment, like, share, report;
+    String comment;
+    String like;
+    String share;
+    String report;
     static int id;
 
     // Creating method that reads the interactions data from the interactions-data.txt database file.
@@ -79,7 +82,7 @@ public class Interaction {
     public static String allCommments() {
         String c = "";
         for (int i = 0; i <= comments.size() - 1; i++) {
-            c += "ID: " + i + " Comment: " + comment.get(i) + "\n \n";
+            c += "ID: " + i + " Comment: " + comments.get(i) + "\n \n";
         }
         return c;
     }
@@ -115,5 +118,41 @@ public class Interaction {
     // Static method that returns arraylist of date of reports.
     public static ArrayList<String> returnReports() {
         return reports;
+    }
+
+    public void addComment() {
+        System.out.print("Post a comment: ");
+        Scanner comment = new Scanner(System.in);
+        String input = comment.nextLine();
+
+        comments.add(input);
+        System.out.println(input);
+    }
+
+
+    public void addLike() {
+        if (!likes.contains(User.uid)) {
+            likes.add(User.uid);
+            like++;
+            System.out.println("Post liked!");
+        } else {
+            likes.remove(User.uid);
+            like--;
+            System.out.println("Like removed!");
+        }
+    }
+
+    public String sharePost() {
+        return User.uid + " shared: " + Post.id;
+    }
+
+    public void addReport() {
+        if (!report.contains(User.uid)) {
+            reports.add(User.uid);
+            report++;
+            System.out.println("Report has been successfully submitted!");
+        } else {
+            System.out.println("You have already submitted a report!");
+        }
     }
 }
