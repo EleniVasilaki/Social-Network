@@ -14,7 +14,7 @@ public class Edit_post extends Post {
 			while ((line = reader.readLine()) =! null) {
 				System.out.println(line);
 			}
-			reader.close;
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +59,7 @@ public class Edit_post extends Post {
 				while ((line = reader.readLine()) =! null) {
 					System.out.println(line);
 				}
-				reader.close;
+				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
