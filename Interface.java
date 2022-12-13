@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Navigation {
+public class Interface {
     public static int option;
 
     public static void selection() {
