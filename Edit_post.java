@@ -2,16 +2,19 @@ import java.io.BufferedWriter;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
-public class Edit_post extends Post {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+public class Edit_post {
 	public void EditPostMethod(String name, String description, String link) {
 		Scanner in = new Scanner(System.in);
 		boolean flag = false;
 		//the user is shown the text
 		try {
 			FileReader file = new FileReader(name);
-			BufferedReader input = new BufferedReader(file);
+			BufferedReader reader = new BufferedReader(file);
 			String line;
-			while ((line = reader.readLine()) =! null) {
+			while (( line = reader.readLine()) =! null) {
 				System.out.println(line);
 			}
 			reader.close();
@@ -26,7 +29,7 @@ public class Edit_post extends Post {
 			if (option == 1) {
 				//edits the description
 				FileWriter fr = new FileWriter(name);
-				BufferedWriter br = new BufferedWriter(fr);
+				BufferedWriter writer = new BufferedWriter(fr);
 				in.nextline();
 				try {
 					description = in.nextLine();
