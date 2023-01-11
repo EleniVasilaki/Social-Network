@@ -13,16 +13,17 @@ import java.io.File;
 
 public class Post {
     //Create Post Method
-    public static Path createPostMethod() { //Path return is for testing purposes
+	public static Path createPostMethod(String ID) { //return is for testing purposes
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         StringBuilder buffer = new StringBuilder(10);
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
         	int limitedInt = 97 + (int) (rand.nextFloat() * (97 - 122));
         	buffer.append((char)  limitedInt);
         }
-        String randString = buffer.toString();
-        System.out.println("click 1 to add a description to your post" + "\n" + "click 2 to add text/link for your post"); // more options?
+        String randString = buffer.toString();*/
+        //The hidden code above generates a random characters ID
+        System.out.println("click 1 to add a description to your post" + "\n" + "click 2 to add text/link for your post");
         int option = in.nextInt();
         try {
 			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
@@ -33,10 +34,10 @@ public class Post {
 				postId = postId + 1;
 			}
 			postId = postId / 3; //Otherwise postId goes up by 3 not by 1 */
-			//this code is for adding increasing numbers as an extra line of each post
+			//The hidden code above is for adding increasing numbers as an extra line of each post
 			in.nextLine();
 			if (option == 1) {
-				writer.write(randString + "\n");
+				writer.write(ID + "\n");
 			    System.out.println("Please enter your description:");
 			    String description = in.nextLine();
 			    writer.write(description + "\n");
@@ -46,12 +47,13 @@ public class Post {
 				writer.close();
 				in.close();
 			} else if (option == 2) {
-				writer.write(randString + "\n");
+				writer.write(ID + "\n");
 				writer.write("\n");
 				System.out.println("Please insert link:");
 			    String userPost = in.nextLine();
 				writer.write(userPost + "\n");
 				writer.close();
+				in.close();			
 			} else {
 				System.out.println("Please insert 1 or 2");
 			}
