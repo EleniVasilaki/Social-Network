@@ -1,17 +1,28 @@
 
-public class Delete_post extends Post_code
-    public void deletePostMethod(String filepath, int postId)
-) {
-        {
+//import java.io.BufferedReader;
+//import java.io.BufferedWriter;
+//import java.io.File;
+//import java.io.FileReader;
+//import java.io.FileWriter;
+//import java.io.PrintWriter;
+import java.io.*;
+
+public class DeletePost {
+
+	public static void main (String[] args) {
+	        deletePostMethod("post.txt","MWV]SO[UL");
+    }
+
+    public static void deletePostMethod(String filepath, String postId) {
         //creating a temporary file to make changes in
         String tempFile = "tempPostId_data.txt";
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
 
         String currentLine;
-        int line = 0
-        
-        
+        int line = 0;
+
+
         try
         {   //boolean value true because we are adding to the existing file, not overwriting it
             // creating objects to read and write to the file
@@ -22,13 +33,23 @@ public class Delete_post extends Post_code
             FileReader fr = new FileReader(filepath);
             BufferedReader br = new BufferedReader(fr);
             //while loop continues till there are no more lines to read to the file
-            while((currentLine = br.readLine()) !=null)  { 
-                if (currentLine.contains(postId)) {
-                    while (line != null) {
-                        if ((currentLine != line) & ((currentLine + 1) != line) & ((currentLine + 2) != line)){
-                        pw.println(line);
-                        }
-                    }
+            while((currentLine = br.readLine()) !=null)  
+            {
+                System.out.println("Reading Line " + line);
+                line++;
+                if (currentLine.contains(postId)) 
+                {
+                    System.out.println("Found Post with ID " + postId);
+                    // Don't copy these 4 lines in the new file
+                    br.readLine();
+                    br.readLine();
+                    br.readLine();
+                    br.readLine();
+                }
+                else
+                {
+                  // Copy the original line to the new file since we don't want to delete this
+                  pw.println(currentLine);
                 }
                 //line counter
             }
@@ -43,12 +64,10 @@ public class Delete_post extends Post_code
             oldFile.delete();
             File dump = new File(filepath);
             newFile.renameTo(dump);
-        }
-        catch(Exception e){
+            //System.out.println("New file created");
+        }  catch(Exception e){
             System.out.println(e);
         }
     }
 
     }
-    
-}
