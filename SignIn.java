@@ -8,9 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class SignIn {
+public class SignUp {
 
-	public static void signIn() {
+	public static void signUp() {
 
 		String path = "users.txt";
 
@@ -19,6 +19,7 @@ public class SignIn {
 		String un ="";
 		String line;
 		BufferedReader br = null;
+		int id = 0;
 
 		try {
 			br = new BufferedReader(new FileReader(path));
@@ -37,7 +38,7 @@ public class SignIn {
 
 					String[] column = line.split(",");
 
-					if (username.equals(column[0])) {
+					if (username.equals(column[1])) {
 						System.out.println("Someone else is already using this username. Please enter a new one.");
 						x = false;
 						break;
@@ -45,6 +46,7 @@ public class SignIn {
 						x = true;
 					}
 				}
+				id++;
 			} while (x == false);
 			br.close();
 
@@ -58,7 +60,7 @@ public class SignIn {
 	    try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(path));
 			PrintWriter pw = new PrintWriter(bw);
-			pw.printf("%s,%s \n",un,password);
+			pw.printf("%id,%s,%s \n",id,un,password);
 			pw.close();
 
 		} catch (FileNotFoundException e) {
