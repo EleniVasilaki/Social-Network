@@ -3,9 +3,10 @@ import java.io.FileReader;
 import java.io.BufferedReader ;
 import java.io.File;
 import java.util.Scanner;
+import java.io.*;
 
 public class Login {
-public static void main(String args[]) {
+public static void login()throws FileNotFoundException, IOException {
    	Scanner myobj1 = new Scanner(System.in);
     System.out.println("Please enter your Username");
     String userName = myobj1.next();
@@ -15,14 +16,12 @@ public static void main(String args[]) {
     String password = myobj2.next();
 
 String line = "";
-BufferedReader br = null;
-
 	try {
-		FileReader file1 = new FileReader("users.txt");
-		BufferedReader br = new BufferedReader(new FileReader(file1));
+		BufferedReader br = new BufferedReader(new FileReader("users.txt"));
 	}catch (FileNotFoundException e) {
-		System.err.println("Unable to open file " + file1);
+		System.err.println("Unable to open file " + "users.txt");
 	}
+	BufferedReader br = new BufferedReader(new FileReader("users.txt"));
 	while ((line = br.readLine()) != null) {
 		String[] column = line.split(";");
 	try{
