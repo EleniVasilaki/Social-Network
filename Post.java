@@ -52,7 +52,6 @@ public class Post {
 			    String userPost = in.nextLine();
 				writer.write(userPost + "\n");
 				writer.close();
-				in.close();
 			} else {
 				System.out.println("Please insert 1 or 2");
 			}
@@ -73,7 +72,7 @@ public class Post {
 			FileReader file = new FileReader(name);
 			BufferedReader reader = new BufferedReader(file);
 			String line;
-			while ((line = reader.readLine()) != null) {
+			while (( line = reader.readLine()) != null) {
 				System.out.println(line);
 			}
 			reader.close();
@@ -85,40 +84,31 @@ public class Post {
 			String msg2 = "click 1 to edit the description, or click 2 to edit the link";
 			System.out.println(msg2);
 			int option = in.nextInt();
-			if (option == 1) {
-				//edits the description
+
+			try{
 				FileWriter fr = new FileWriter(name);
-				BufferedWriter br = new BufferedWriter(fr);
-				in.nextline();
-				try {
+				BufferedWriter writer = new BufferedWriter(fr);
+				if (option == 1) {
+					//edits the description
+					in.nextLine();
 					description = in.nextLine();
 					writer.write(description);
-					writer.close();
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			} else if (option == 2) {
-				//edits the link
-				FileWriter fr = new FileWriter(name);
-				BufferedWriter br = new BufferedWriter(fr);
-				in.nextline();
-				try {
+				} else if (option == 2) {
+					//edits the link
+					in.nextLine();
 					link = in.nextLine();
 					writer.write(link);
-					writer.close();
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			//the user is shown the texts after the changes are made
 			try {
 				FileReader file = new FileReader(name);
 				BufferedReader reader = new BufferedReader(file);
 				String line;
-				while ((line = reader.readLine()) =! null) {
+				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
 				}
 				reader.close();
@@ -127,12 +117,13 @@ public class Post {
 			}
 			//the user chooses to exit or to continue editing
 			System.out.println("Press 1 to continue editing and 2 to save and exit");
-			int ans = in.next();
+			int ans = in.nextInt();
 			if (ans == 2 ) {
 				flag = true;
 			} else {
 				System.out.println(msg2);
 			}
+			in.close();
 		}
 	}
 
