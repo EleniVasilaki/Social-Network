@@ -5,14 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 // H upload na kanei extend thn create: mesw methodou ths create na kalw thn upload analoga ean ebale perigrafh h oxi o xrhsths????
-public  class Create_Post extends Post_code{
+public  class CreatePost extends Post_code{
 	//public static String path;
-    public static Path createPostMethod() { //return is for testing purposes
+    public static void createPostMethod() { //return is for testing purposes
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         StringBuilder buffer = new StringBuilder(10);
@@ -60,8 +59,7 @@ public  class Create_Post extends Post_code{
 			System.out.println("Please insert 1 or 2");
 		}
 		Path path = Paths.get(".\\post.txt");
-		return path;
-    }
+	}
 }
 
 

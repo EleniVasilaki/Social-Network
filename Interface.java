@@ -19,12 +19,12 @@ public class Interface {
 
             switch (option) {
                 case 1:
-                    User.register();
+                    SignIn.signIn();
                     mainMenu();
                 case 2:
-                    User.logIn();
+                    Login.logIn();
                     mainMenu();
-                    default -> System.out.println("Wrong input. Try again");
+                default: System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & (option != 2));
     }
@@ -46,12 +46,12 @@ public class Interface {
                     Post.allPosts();
                     feedMenu();
                 }
-                case 3 -> Post.createPost();
+                case 3 -> CreatePost.createPostMethod();
                 case 4 -> {
                     User.logOut();
                     welcomeMenu();
                 }
-                default -> System.out.println("Wrong input. Try again");
+                default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
@@ -67,14 +67,15 @@ public class Interface {
             selection();
 
             switch (option) {
-                case 1 -> editProfileMenu();
+                case 1 -> Profile.changeProfile(userId);
                 case 2 -> myPostsMenu();
                 case 3 -> mainMenu();
-                default -> System.out.println("Wrong input. Try again");
+                default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3);
     }
 
+    /*
     public void editProfileMenu() {
         do {
             System.out.println("""
@@ -91,10 +92,11 @@ public class Interface {
                 case 2 -> Profile.changePassword();
                 case 3 -> Profile.changeBio();
                 case 4 -> profileMenu();
-                default -> System.out.println("Wrong input. Try again");
+                default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
+    */
 
     public void myPostsMenu() {
         do {
@@ -109,13 +111,13 @@ public class Interface {
 
             switch (option) {
                 case 1 -> Post.editPost();
-                case 2 -> Post.deletePost();
+                case 2 -> Post.deletePostMethod();
                 case 3 -> {
                     Post.nextPost();
                     feedMenu();
                 }
                 case 4 -> profileMenu();
-                default -> System.out.println("Wrong input. Try again");
+                default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
@@ -143,7 +145,7 @@ public class Interface {
                     feedMenu();
                 }
                 case 6 -> mainMenu();
-                default -> System.out.println("Wrong input. Try again");
+                default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4 & option != 5 & option != 6);
     }

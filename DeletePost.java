@@ -69,5 +69,4 @@ public class DeletePost {
             System.out.println(e);
         }
     }
-
-    }
+}

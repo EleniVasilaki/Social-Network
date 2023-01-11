@@ -120,7 +120,7 @@ public class Interaction {
         return reports;
     }
 
-    public void addComment() {
+    public static void addComment() {
         System.out.print("Post a comment: ");
         Scanner comment = new Scanner(System.in);
         String input = comment.nextLine();
@@ -130,7 +130,7 @@ public class Interaction {
     }
 
 
-    public void addLike() {
+    public static void addLike() {
         if (!likes.contains(User.uid)) {
             likes.add(User.uid);
             like++;
@@ -142,11 +142,11 @@ public class Interaction {
         }
     }
 
-    public String sharePost() {
+    public static void sharePost() {
         return User.uid + " shared: " + Post.id;
     }
 
-    public void addReport() {
+    public static void addReport() {
         if (!report.contains(User.uid)) {
             reports.add(User.uid);
             report++;
