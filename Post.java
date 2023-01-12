@@ -12,17 +12,17 @@ import java.io.PrintWriter;
 import java.io.File;
 
 public class Post {
-    //Create Post Method
-	public static Path createPostMethod(String ID) { //return is for testing purposes
+    //Create Post Method	
+	public void createPostMethod(String userID) {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         StringBuilder buffer = new StringBuilder(10);
-        /*for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
         	int limitedInt = 97 + (int) (rand.nextFloat() * (97 - 122));
         	buffer.append((char)  limitedInt);
         }
-        String randString = buffer.toString();*/
-        //The hidden code above generates a random characters ID
+        String postID = buffer.toString();
+        //The code above generates PostID
         System.out.println("click 1 to add a description to your post" + "\n" + "click 2 to add text/link for your post");
         int option = in.nextInt();
         try {
@@ -37,7 +37,8 @@ public class Post {
 			//The hidden code above is for adding increasing numbers as an extra line of each post
 			in.nextLine();
 			if (option == 1) {
-				writer.write(ID + "\n");
+				writer.write(userID + "\n");
+				writer.write(postID + "\n");
 			    System.out.println("Please enter your description:");
 			    String description = in.nextLine();
 			    writer.write(description + "\n");
@@ -47,7 +48,8 @@ public class Post {
 				writer.close();
 				in.close();
 			} else if (option == 2) {
-				writer.write(ID + "\n");
+				writer.write(userID + "\n");
+				writer.write(postID + "\n");
 				writer.write("\n");
 				System.out.println("Please insert link:");
 			    String userPost = in.nextLine();
@@ -61,8 +63,6 @@ public class Post {
 			//e.printStackTrace();
 			System.out.println("Please insert 1 or 2");
 		}
-		Path path = Paths.get(".\\post.txt");
-		return path;
     }
     //Edit Method
 
