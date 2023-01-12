@@ -17,8 +17,10 @@ public class Profile{
 	private String monthOfBirth;
 	private String yearOfBirth;
 	private String levelOfEducation;
+	public Profile () {
+	}
 	public Profile(String firstName, String lastName, String fieldOfInterest,
-	                String dayOfBrirth, String monthOfBirth, String yearOfBirth,
+	                String dayOfBirth, String monthOfBirth, String yearOfBirth,
 	                String levelOfEducation) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -72,8 +74,8 @@ public class Profile{
 	public String getLevelOfEducation() {
 		return levelOfEducation;
 	}
-	//method to create the profile and save the data to txt
-	public void createAndSaveProfile(String userId) {
+	//creates profile and saves data to the txt
+	public void createProfile(int userId) {
 			Scanner s = new Scanner(System.in);
 			System.out.println("Create your profile");
 			System.out.println("First name:");
@@ -89,14 +91,34 @@ public class Profile{
 			String mOFb = s.next();
 			System.out.println("Year:");
 			String yOFb = s.next();
-			System.out.println("Level of education:");
-			String lOFe = s.next();
-			// all these should be done before creating the new user bc of same constructor
-			//saving all data to file
-
-
+			int answ = 0;
+			String lOFe = "";
+			do {
+				System.out.println("Level of education:");
+			    System.out.println("1.High School");
+			    System.out.println("2.Bsc");
+			    System.out.println("3.Msc");
+			    System.out.println("4.Phd");
+			   answ = s.nextInt();
+			   switch(answ) {
+				   case 1:
+				   lOFe = "High School";
+				   break;
+				   case 2:
+				   lOFe = "Bsc";
+				   break;
+				   case 3:
+				   lOFe = "Msc";
+				   break;
+				   case 4:
+				   lOFe = "Phd";
+				   break;
+				   default:
+				   System.out.println("Wrong input. Try again");
+			   }
+			 } while(answ != 1 && answ != 2 && answ != 3 && answ != 4);
 			Profile p = new Profile(fn , ln , fOFi , dOFb , mOFb , yOFb , lOFe);
-			String d0 = userId;
+			String d0 = String.valueOf(userId);
 			String d1 = p.getFirstName();
 			String d2 = p.getLastName();
 			String d3 = p.getFieldOfInterest();
@@ -112,121 +134,128 @@ public class Profile{
 				= (d0 + "," + d1 + "," + d2 +
 				"," + d3 + "," + d4 + "," + d5 +
 				"," + d6 + "," + d7);
-				pw.append("\n" + dataToBeSaved);
+				pw.append(dataToBeSaved + "\n");
 				pw.close();
+				System.out.println("You have completed your profile");
 			} catch (IOException e1) {
 				System.out.println("An error has occurred");
 			}
 			s.close();
 	}
-	//it returns the values of a profile
-	public static String[] getProfile(String userId) {
-		ArrayList<String> rec = new ArrayList<String>();
-	    boolean found = false;
+	//returns the values of a profile
+	public static String[] getProfile(int userId) {
 		String[] data = new String[8];
-		String r = "";
-		try {
-			Scanner x =
-			new Scanner(new File("ProfileData.txt"));
-			x.useDelimiter("[,\n]");
-			while(x.hasNext()) {
-				data[0] = x.next();
-				data[1] = x.next();
-				data[2] = x.next();
-				data[3] = x.next();
-				data[4] = x.next();
-				data[5] = x.next();
-				data[6] = x.next();
-				data[7] = x.next();
-				if(data[0] == userId) {
-					r = data[0] + "," + data[1] + "," + data[2] + "," +
-					data[3] + "," + data[4] + "," + data[5] + "," +
-					data[6] + "," + data[7];
-					rec.add(r);
-					found = true;
-					break;
+				String currentLine;
+				boolean found = false;
+				String userID = String.valueOf(userId);
+				try {
+					FileReader fr = new FileReader("ProfileData.txt");
+					BufferedReader br = new BufferedReader(fr);
+					while((currentLine = br.readLine()) != null) {
+						data = currentLine.split(",");
+						if(userID.equals(data[0])) {
+							found = true;
+							break;
+						}
+					}
+				} catch (FileNotFoundException e) {
+					System.out.println("File not found");
+					return null;
+				} catch (IOException e1) {
+					System.out.println("An error has occurred");
 				}
-			}
-			x.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		}
-		if (!found) {
-			System.out.println("No records found");
-		}
-		String[] recArray = new String[rec.size()];
-		rec.toArray(recArray);
-		return recArray;
+				if(!found) {
+					System.out.println("No records found");
+				}
+		return data;
 	}
 
 
-	// it shows a profile
-	public static void viewProfile(String userId) {
-		String[] data = getProfile(userId);
-		System.out.println("First name :" + data[1]);
-		System.out.println("Last name: " + data[2]);
-		System.out.println("Field of interest: " + data[3]);
-		System.out.println("Birthday: " +
-		data[4] + "/" + data[5] + "/" + data[6]);
-		System.out.println("Level of education: " + data[7]);
+	// shows the profile
+	public static void viewProfile(int userId) {
+		Profile p = new Profile();
+		String[] d = p.getProfile(userId);
+		if(d.length == 8) {
+		     System.out.println("My profile");
+		     System.out.println("First name :" + d[1]);
+		     System.out.println("Last name: " + d[2]);
+		     System.out.println("Field of interest: " + d[3]);
+		     System.out.println("Birthday: " +
+		     d[4] + "/" + d[5] + "/" + d[6]);
+		     System.out.println("Level of education: " + d[7]);
+		 } else {
+			 System.out.println("Could not find rec");
+		 }
 	}
-	// makes changes in txt file
-	public static void changeProfile(String userId) {
-		String[] data = getProfile(userId);
-		System.out.println("Press 1 to change your first name");
-		System.out.println("Press 2 to change your last name");
+	// makes changes in txt file by replacing the old line
+	public static void changeProfile(int userId) {
+		String[] data = new String[8];
+		data = getProfile(userId);
+	    System.out.println("Press 1 to change your first name");
+	    System.out.println("Press 2 to change your last name");
 		System.out.println("Press 3 to change your field of interest");
-		System.out.println("Press 4 to change the day of birth");
+	    System.out.println("Press 4 to change the day of birth");
 		System.out.println("Press 5 to change the month of birth");
 		System.out.println("Press 6 to change the year of birth");
 		System.out.println("Press 7 to change your level of education");
-		Scanner s2 = new Scanner(System.in);
+	    Scanner s2 = new Scanner(System.in);
 		int ans = s2.nextInt();
-		System.out.println("Enter the new value");
-		String newValue = s2.next();
-		String dataToBeSaved = data[0];
-		s2.close();
-		for(int i = 1; i <8; i++) {
+		System.out.println("Enter the new value:");
+		String newValue = "";
+		int answ = 0;
+		if(ans == 7) {
+			do {
+				System.out.println("Level of education:");
+				System.out.println("1.High School");
+			    System.out.println("2.Bsc");
+				System.out.println("3.Msc");
+				System.out.println("4.Phd");
+				answ = s2.nextInt();
+				switch(answ) {
+					case 1:
+					newValue = "High School";
+					break;
+					case 2:
+				    newValue = "Bsc";
+					break;
+					case 3:
+					newValue = "Msc";
+					break;
+					case 4:
+					newValue = "Phd";
+					break;
+					default:
+					System.out.println("Wrong input. Try again");
+				}
+			} while(answ != 1 && answ != 2 && answ != 3 && answ != 4);
+		} else {
+			newValue = s2.next();
+		}
+	    String dataToBeSaved = data[0];
+		String oldData = data[0];
+	    for(int i = 1; i <8; i++) {
+			oldData += ("," + data[i]);
 			if(i == ans) {
-				dataToBeSaved += (newValue + ",");
+				dataToBeSaved += ("," + newValue );
 			} else {
-				dataToBeSaved += (data[i] + ",");
+				dataToBeSaved += ("," + data[i]);
 			}
 		}
-		File oldFile = new File("ProfileData.txt");
-		File tempFile = new File("temp.txt");
-		String[] st = new String[8];
-		 try {
-			 FileWriter fw = new FileWriter(tempFile, true);
-			 BufferedWriter bw = new BufferedWriter(fw);
-			 PrintWriter pw = new PrintWriter(bw);
-			 Scanner  s3 = new Scanner(new File("temp.txt"));
-			 s3.useDelimiter("[,\n]");
-			 while(s3.hasNext()) {
-				 st[0] = s3.next();
-				 st[1] = s3.next();
-				 st[2] = s3.next();
-				 st[3] = s3.next();
-				 st[4] = s3.next();
-				 st[5] = s3.next();
-				 st[6] = s3.next();
-				 st[7] = s3.next();
-				 if(st[0].equals(data[0])) {
-					 pw.println(dataToBeSaved);
-				 } else {
-					 pw.println(st[0] + "," + st[1] + "," + st[2] +
-				     "," + st[3] + "," + st[4] + "," + st[5] +
-				     "," + st[6] + "," + st[7]);
-				 }
-				 s3.close();
-				 pw.flush();
-				 pw.close();
-				 oldFile.delete();
-				 File dump = new File("ProfileData.txt");
-				 tempFile.renameTo(dump);
-			 }
-		 } catch (IOException e) {
-			 System.out.println("An error has occured");
-	     }
-	 }
- }
+		s2.close();
+		try {
+			Scanner sc = new Scanner(new File("ProfileData.txt"));
+			StringBuffer buffer = new StringBuffer();
+			while (sc.hasNextLine()) {
+				buffer.append(sc.nextLine()+System.lineSeparator());
+			}
+			String fileContents = buffer.toString();
+			sc.close();
+			fileContents = fileContents.replaceAll(oldData, dataToBeSaved);
+			FileWriter writer = new FileWriter("ProfileData.txt");
+			writer.append(fileContents);
+			writer.flush();
+		} catch(IOException e) {
+			System.out.println("An error has occured");
+		}
+	}
+}
