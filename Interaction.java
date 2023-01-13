@@ -1,17 +1,9 @@
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.Date;
-import java.lang.Math;
+import java.io.*;
+import java.util.*;
 
 public class Interaction {
     // Initialising interaction and id and other attributes for our comment object.
-    String comment;
-    String like;
-    String share;
-    String report;
+    boolean like, comment, share, report;
     static int id;
 
     // Creating method that reads the interactions data from the interactions-data.txt database file.
@@ -35,10 +27,10 @@ public class Interaction {
 
     // These are arraylists in which we are going to input our interactions,ids and other info.
     static ArrayList<Integer> ids = new ArrayList<>();
-    static ArrayList<String> comments = new ArrayList<>();
-    static ArrayList<String> shares = new ArrayList<>();
-    static ArrayList<String> likes = new ArrayList<>();
-    static ArrayList<String> reports = new ArrayList<>();
+    static ArrayList<ArrayList<Boolean>> likes = new ArrayList<>();
+    static ArrayList<ArrayList<Boolean>> comments = new ArrayList<>();
+    static ArrayList<ArrayList<Boolean>> shares = new ArrayList<>();
+    static ArrayList<ArrayList<Boolean>> reports = new ArrayList<>();
 
 
     // Interaction object constructor.
@@ -120,39 +112,67 @@ public class Interaction {
         return reports;
     }
 
-    public static void addComment() {
+    // Checks if the post (pid) is liked by any given user (uid) in 2D ArrayList<Boolean> likes.
+    public static void addLike(int uid, int pid) {
+        if (!likes.get(returnSeat(uid, "users.txt")).get(returnSeat(pid, "post.txt"))) {
+                likes.get(returnSeat(uid, "users.txt")).set(pid, true);
+                System.out.println("Post liked!");
+        } else {
+            likes.get(returnSeat(uid, "users.txt")).set(pid, false);
+            System.out.println("Like removed from post.");
+        }
+    }
+
+    // Sum up the number of likes that a post (pid) has got based on the number of "true" indexes.
+    public static int likes(List<List<Boolean>> likes, int pid) {
+        int counter = 0, numOfLikes = 0;
+
+        for (int i = 0; i < likes.get(pid).size(); i++) {
+            if (likes.get(i).get(pid))
+                counter += 1;
+        }
+        numOfLikes += counter;
+
+        return numOfLikes;
+    }
+
+    public static void addComment(int uid) {
         System.out.print("Post a comment: ");
         Scanner comment = new Scanner(System.in);
         String input = comment.nextLine();
-
         comments.add(input);
         System.out.println(input);
-    }
-
-
-    public static void addLike() {
-        if (!likes.contains(User.uid)) {
-            likes.add(User.uid);
-            like++;
-            System.out.println("Post liked!");
-        } else {
-            likes.remove(User.uid);
-            like--;
-            System.out.println("Like removed!");
-        }
     }
 
     public static void sharePost() {
         return User.uid + " shared: " + Post.id;
     }
 
-    public static void addReport() {
-        if (!report.contains(User.uid)) {
-            reports.add(User.uid);
-            report++;
-            System.out.println("Report has been successfully submitted!");
-        } else {
-            System.out.println("You have already submitted a report!");
+    public static void addReport(int uid) {
+        if (!reports.get(returnSeat(uid, "users.txt"))) {
+            likes.set(returnSeat(uid, "users.txt"), true);
+            System.out.println("Post reported!");
+        } else
+            System.out.println("Post already reported!");
+    }
+
+    // This method reads the data from users.txt and return the number the of the line from the given id and file.
+    public static int returnSeat(int id, String file) {
+        int lines = 0, seat = 0; // The seat (the number of line) where the ID is found.
+        String line;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            while ((line = br.readLine()) != null) {
+                lines++;
+                String[] column = line.split(";");
+                if (id == Integer.parseInt(column[0])) {
+                    seat = lines;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return seat;
     }
 }
