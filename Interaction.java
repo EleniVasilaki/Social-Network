@@ -2,177 +2,231 @@ import java.io.*;
 import java.util.*;
 
 public class Interaction {
-    // Initialising interaction and id and other attributes for our comment object.
-    boolean like, comment, share, report;
-    static int id;
-
-    // Creating method that reads the interactions data from the interactions-data.txt database file.
-    public static void readdata() {
+    public static void checkInteractions(int uid, int pid) {
         try {
-            File myObj = new File("interaction-data.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                String[] myArray = data.split(",");
-                Interaction inter = new Interaction(myArray[0], Integer.parseInt(myArray[1]), myArray[2], myArray[3], myArray[4], myArray[5]);
-                id = ids.size();
-                MyFrame.pats.add(inter);
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred. \n");
-            e.printStackTrace();
-        }
-    }
-
-    // These are arraylists in which we are going to input our interactions,ids and other info.
-    static ArrayList<Integer> ids = new ArrayList<>();
-    static ArrayList<ArrayList<Boolean>> likes = new ArrayList<>();
-    static ArrayList<ArrayList<Boolean>> comments = new ArrayList<>();
-    static ArrayList<ArrayList<Boolean>> shares = new ArrayList<>();
-    static ArrayList<ArrayList<Boolean>> reports = new ArrayList<>();
-
-
-    // Interaction object constructor.
-    public Interaction(String comment, int id, String share, String like, String report) {
-        this.comment = comment;
-        this.id = id;
-        this.share = share;
-        this.like = like;
-        this.report = report;
-        // Adding interaction attributes to arraylists.
-        ids.add(id);
-        comments.add(comment);
-        shares.add(share);
-        likes.add(like);
-        reports.add(report);
-    }
-
-    // Simple toString to return id.
-    public int getId() {
-        return id;
-    }
-
-    // Returning comment
-    public String getComment() {
-        return comment;
-    }
-
-    // Custom toString that return full id + name.
-    public String getInteraction() {
-        return "Comment: " + comment + "\nID: " + id;
-    }
-
-    // Custom toString that returns all interaction's attributes
-    public String getInteractionData() {
-        return "Comment: " + comment + "\nLike: " + like
-                + "\nShare: " + share + "\nReport: " + report
-                + "\n";
-    }
-
-    // Function that returns all interaction comments in a nice format.
-    public static String allCommments() {
-        String c = "";
-        for (int i = 0; i <= comments.size() - 1; i++) {
-            c += "ID: " + i + " Comment: " + comments.get(i) + "\n \n";
-        }
-        return c;
-    }
-
-    // Method  that returns all interactions data in a nice format.
-    public static void allData() {
-        for (int i = 0; i <= comments.size() - 1; i++) {
-            System.out.println("ID: " + i + " Comment: " + comments.get(i) + "\nShare: " + shares.get(i) + " Likes: " + likes.get(i)
-                    + "\nReport: " + reports.get(i));
-        }
-    }
-
-    // Static method that returns arraylist of comments.
-    public static ArrayList<String> returnComments() {
-        return comments;
-    }
-
-    // Static method that returns arraylist of Ids.
-    public static ArrayList<Integer> returnIds() {
-        return ids;
-    }
-
-    // Static method that returns arraylist of shares.
-    public static ArrayList<String> returnShares() {
-        return shares;
-    }
-
-    // Static method that returns arraylist of date of likes.
-    public static ArrayList<String> returnLikes() {
-        return likes;
-    }
-
-    // Static method that returns arraylist of date of reports.
-    public static ArrayList<String> returnReports() {
-        return reports;
-    }
-
-    // Checks if the post (pid) is liked by any given user (uid) in 2D ArrayList<Boolean> likes.
-    public static void addLike(int uid, int pid) {
-        if (!likes.get(returnSeat(uid, "users.txt")).get(returnSeat(pid, "post.txt"))) {
-                likes.get(returnSeat(uid, "users.txt")).set(pid, true);
-                System.out.println("Post liked!");
-        } else {
-            likes.get(returnSeat(uid, "users.txt")).set(pid, false);
-            System.out.println("Like removed from post.");
-        }
-    }
-
-    // Sum up the number of likes that a post (pid) has got based on the number of "true" indexes.
-    public static int likes(List<List<Boolean>> likes, int pid) {
-        int counter = 0, numOfLikes = 0;
-
-        for (int i = 0; i < likes.get(pid).size(); i++) {
-            if (likes.get(i).get(pid))
-                counter += 1;
-        }
-        numOfLikes += counter;
-
-        return numOfLikes;
-    }
-
-    public static void addComment(int uid) {
-        System.out.print("Post a comment: ");
-        Scanner comment = new Scanner(System.in);
-        String input = comment.nextLine();
-        comments.add(input);
-        System.out.println(input);
-    }
-
-    public static void sharePost() {
-        return User.uid + " shared: " + Post.id;
-    }
-
-    public static void addReport(int uid) {
-        if (!reports.get(returnSeat(uid, "users.txt"))) {
-            likes.set(returnSeat(uid, "users.txt"), true);
-            System.out.println("Post reported!");
-        } else
-            System.out.println("Post already reported!");
-    }
-
-    // This method reads the data from users.txt and return the number the of the line from the given id and file.
-    public static int returnSeat(int id, String file) {
-        int lines = 0, seat = 0; // The seat (the number of line) where the ID is found.
-        String line;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            boolean found = false;
+            // Checks if any interaction by any user has ever happened in any post.
             while ((line = br.readLine()) != null) {
-                lines++;
-                String[] column = line.split(";");
-                if (id == Integer.parseInt(column[0])) {
-                    seat = lines;
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid) {
+                    found = true;
                     break;
                 }
+            }
+            br.close();
+            // If it hasn't, it sets the interactions to false.
+            if (!found) {
+                BufferedWriter bw = new BufferedWriter(new FileWriter("interactions.txt", true));
+                bw.write(uid + "," + pid + ",false," + "" + ",false,false");
+                bw.newLine();
+                bw.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return seat;
+    }
+
+    public static void like(int uid, int pid) {
+        checkInteractions(uid, pid);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                    found = true;
+                    line = uid + "," + pid + ",true," + values[3] + "," + values[4] + "," + values[5];
+                    System.out.println("Post successfully liked!");
+                }
+                fileContent.append(line);
+                fileContent.append(System.lineSeparator());
+            }
+            br.close();
+            if (found) {
+                FileWriter fw = new FileWriter("interactions.txt");
+                fw.write(fileContent.toString());
+                fw.close();
+            } else {
+                System.out.println("You have already liked this post.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Counts how many times a post (pid) has been liked.
+    public static int likes(int pid) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[1]) == pid && values[2].equals("true")) {
+                    count++;
+                }
+            }
+            br.close();
+            return count;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void comment(int uid, int pid) {
+        checkInteractions(uid, pid);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && (values[3].equals("") || !values[3].equals(""))) {
+                    found = true;
+
+                    System.out.println("Post a comment:");
+                    Scanner in = new Scanner(System.in);
+                    String comment = in.nextLine();
+
+                    line = uid + "," + pid + "," + values[2] + "," + comment + "," + values[4] + "," + values[5];
+                }
+                fileContent.append(line);
+                fileContent.append(System.lineSeparator());
+            }
+            br.close();
+            if (found) {
+                FileWriter fw = new FileWriter("interactions.txt");
+                fw.write(fileContent.toString());
+                fw.close();
+            } else {
+                System.out.println("New comment added!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Counts how many comments a post (pid) has got.
+    public static int comments(int pid) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[1]) == pid && !values[3].equals("")) {
+                    count++;
+                }
+            }
+            br.close();
+            return count;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void sharePost(int uid, int pid) {
+        checkInteractions(uid, pid);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                    found = true;
+                    line = uid + "," + pid + "," + values[2] + "," + values[3] + ",true," + values[5];
+                    System.out.println("You shared the post #" + pid);
+                }
+                fileContent.append(line);
+                fileContent.append(System.lineSeparator());
+            }
+            br.close();
+            if (found) {
+                FileWriter fw = new FileWriter("interactions.txt");
+                fw.write(fileContent.toString());
+                fw.close();
+            } else {
+                System.out.println("Post already shared");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int shares(int pid) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[1]) == pid && !values[4].equals("true")) {
+                    count++;
+                }
+            }
+            br.close();
+            return count;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void report(int uid, int pid) {
+        checkInteractions(uid, pid);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                    found = true;
+                    line = uid + "," + pid + "," + values[2] + "," + values[3] + "," + values[4] + ",true";
+                    System.out.println("Post #" + pid + " successfully reported!");
+                }
+                fileContent.append(line);
+                fileContent.append(System.lineSeparator());
+            }
+            br.close();
+            if (found) {
+                FileWriter fw = new FileWriter("interactions.txt");
+                fw.write(fileContent.toString());
+                fw.close();
+            } else {
+                System.out.println("Post already reported!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int reports(int pid) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (Integer.parseInt(values[1]) == pid && !values[5].equals("true")) {
+                    count++;
+                }
+            }
+            br.close();
+            return count;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
