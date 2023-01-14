@@ -75,7 +75,7 @@ public class Profile{
 		return levelOfEducation;
 	}
 	//creates profile and saves data to the txt
-	public void createProfile(int userId) {
+	public void createProfile(String userId) {
 			Scanner s = new Scanner(System.in);
 			System.out.println("Create your Bio");
 			System.out.println("First name:");
@@ -118,7 +118,7 @@ public class Profile{
 			   }
 			 } while(answ != 1 && answ != 2 && answ != 3 && answ != 4);
 			Profile p = new Profile(fn , ln , fOFi , dOFb , mOFb , yOFb , lOFe);
-			String d0 = String.valueOf(userId);
+			String d0 = userId;
 			String d1 = p.getFirstName();
 			String d2 = p.getLastName();
 			String d3 = p.getFieldOfInterest();
@@ -143,17 +143,16 @@ public class Profile{
 			s.close();
 	}
 	//returns the values of a profile
-	public static String[] getProfile(int userId) {
+	public static String[] getProfile(String userId) {
 		String[] data = new String[8];
 				String currentLine;
 				boolean found = false;
-				String userID = String.valueOf(userId);
 				try {
 					FileReader fr = new FileReader("ProfileData.txt");
 					BufferedReader br = new BufferedReader(fr);
 					while((currentLine = br.readLine()) != null) {
 						data = currentLine.split(",");
-						if(userID.equals(data[0])) {
+						if(userId.equals(data[0])) {
 							found = true;
 							break;
 						}
@@ -172,7 +171,7 @@ public class Profile{
 
 
 	// shows the profile
-	public static void viewProfile(int userId) {
+	public static void viewProfile(String userId) {
 		Profile p = new Profile();
 		String[] d = p.getProfile(userId);
 		if(d.length == 8) {
@@ -188,7 +187,7 @@ public class Profile{
 		 }
 	}
 	// makes changes in txt file by replacing the old line
-	public static void changeProfile(int userId) {
+	public static void changeProfile(String userId) {
 		viewProfile(userId);
 		String[] data = new String[8];
 		data = getProfile(userId);
@@ -262,20 +261,19 @@ public class Profile{
 	}
 
 	//changes the username
-	public void changeUsername(int userId) {
+	public void changeUsername(String userId) {
 		String[] data = new String[3];
 		String currentLine;
 		boolean found = false;
 		String oldLine = "";
 		String newLine = "";
 		String newUN ;
-		String userID = String.valueOf(userId);
 		try {
 			FileReader fr = new FileReader("users.txt");
 			BufferedReader br = new BufferedReader(fr);
 			while((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
-				if(userID.equals(data[0])) {
+				if(userId.equals(data[0])) {
 					found = true;
 					break;
 				}
@@ -309,29 +307,39 @@ public class Profile{
 	}
 
 	//changes the password
-	public void changePassword(int userId) {
+	public void changePassword(String userId) {
 			String[] data = new String[3];
 			String currentLine;
 			boolean found = false;
+			boolean pwans = false;
 			String oldLine = "";
 			String newLine = "";
 			String newPW;
-			String userID = String.valueOf(userId);
+			String currPW;
 			try {
 				FileReader fr = new FileReader("users.txt");
 				BufferedReader br = new BufferedReader(fr);
 				while((currentLine = br.readLine()) != null) {
 					data = currentLine.split(",");
-					if(userID.equals(data[0])) {
+					if(userId.equals(data[0])) {
 						found = true;
 						break;
 					}
 				}
 				if(found) {
-					System.out.println("My password: " + data[2]);
-		            System.out.println("Enter new password");
-		            Scanner sc = new Scanner(System.in);
-	                newPW = sc.next();
+					Scanner sc = new Scanner(System.in);
+					System.out.println("Enter current password:");
+					currPW = sc.next();
+					//System.out.println("My password: " + data[2]);
+					if(currPW.equals(data[2])) {
+						System.out.println("Enter new password:");
+		                newPW = sc.next();
+		                pwans = true;
+					} else {
+						System.out.println("Wrong password");
+						System.out.println("You can't change te password");
+						newPW = data[2];
+					}
 	                sc.close();
 	                oldLine = data[0] + "," + data[1] + "," + data[2];
 	                newLine = data[0] + "," + data[1] + "," + newPW;
@@ -346,7 +354,9 @@ public class Profile{
 					FileWriter writer = new FileWriter("users.txt");
 					writer.append(fileContents);
 					writer.flush();
-					System.out.println("You have successfully changed your password");
+					if(pwans) {
+						System.out.println("You have successfully changed your password");
+					}
 				}
 			} catch(FileNotFoundException e1) {
 				System.out.println("File Not Found");
