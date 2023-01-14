@@ -65,14 +65,15 @@ public class Feed {
 
        			} else if (option == 3) {     		//Like Code		
        				System.out.println(postID);
-        			Interaction.like(userID, postID); 
+        			like(userID, postID); 
         			System.out.println("You liked the post \n");
         			
        			} else if (option == 4) {			//Count of Likes Code
-					numOfLikes = Interaction.likes(postID); 
+					numOfLikes = likes(postID); 
        				System.out.println("Number of likes :" + numOfLikes + "\n");
        				
-       			} else if (option == 5) {       	// Go Back Code			
+       			} else if (option == 5) {   
+					mainMenu();    	// Go Back Code			
        				flag = false; 
        				
         		} else {       						//Wrong Input Code
