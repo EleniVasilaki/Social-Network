@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Login {
-public static void login()throws FileNotFoundException, IOException {
+public static String login()throws FileNotFoundException, IOException {
    	Scanner myobj1 = new Scanner(System.in);
     System.out.println("Please enter your Username");
     String userName = myobj1.next();
@@ -38,5 +38,6 @@ String line = "";
 		 System.err.println("error");
 		}
 	}
-}
+     return column[0];
+  }
 }
