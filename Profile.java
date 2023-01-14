@@ -306,7 +306,7 @@ public class Profile{
 		}
 	}
 
-	//changes the password
+	//verifies current password and changes it
 	public void changePassword(String userId) {
 			String[] data = new String[3];
 			String currentLine;
@@ -330,7 +330,6 @@ public class Profile{
 					Scanner sc = new Scanner(System.in);
 					System.out.println("Enter current password:");
 					currPW = sc.next();
-					//System.out.println("My password: " + data[2]);
 					if(currPW.equals(data[2])) {
 						System.out.println("Enter new password:");
 		                newPW = sc.next();
