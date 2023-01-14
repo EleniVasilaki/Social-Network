@@ -56,19 +56,20 @@ public class SignUp {
 
 		System.out.println("Please enter a password");
 		Scanner in = new Scanner (System.in);
-	    String password = in.next();
-	    try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-			PrintWriter pw = new PrintWriter(bw);
-			pw.printf("%id,%s,%s \n",id,un,password);
-			pw.close();
+	    	String password = in.next();
+		
+		System.out.println("Please enter a password");
+		Scanner in = new Scanner (System.in);
+		String password = in.next();
 
-		} catch (FileNotFoundException e) {
-			System.err.println("Unable to open file ");
-
-		} catch (Exception e) {
-			System.err.println("Error");
+		try (FileWriter f = new FileWriter(path, true);
+			BufferedWriter b = new BufferedWriter(f);
+			PrintWriter p = new PrintWriter(b);) {
+				p.printf("%d,%s,%s \n",id,username,password);
+		} catch (IOException i) { 
+			i.printStackTrace(); 
 		}
+	    	Profile.createProfile();
 		return id;		
 	}
 }
