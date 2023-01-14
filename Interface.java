@@ -2,9 +2,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Interface {
-    public static int option, uid, pid;
+    public static int option;
+    public static String uid, pid;
 
-    public static void selection() {
+    public Interface() {}
+
+    public void selection() {
         Scanner input = new Scanner(System.in);
         option = input.nextInt();
     }
@@ -20,10 +23,10 @@ public class Interface {
 
             switch (option) {
                 case 1:
-                    SignUp.signUp();
+                    uid = SignUp.signUp();
                     mainMenu();
                 case 2:
-                    Login.login();
+                    uid = Login.login();
                     mainMenu();
                 default: System.out.println("Wrong input. Please try again");
             }
@@ -43,14 +46,9 @@ public class Interface {
 
             switch (option) {
                 case 1 -> profileMenu();
-                case 2 -> {
-                    Post.allPosts();
-                    feedMenu();
-                }
+                case 2 -> Feed.feedMethod(uid);
                 case 3 -> Post.createPostMethod(uid);
-                case 4 -> {
-                    logOut();
-                }
+                case 4 -> logOut();
                 default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
@@ -68,7 +66,8 @@ public class Interface {
 
             switch (option) {
                 case 1 -> Profile.changeProfile(uid);
-                case 2 -> myPostsMenu();
+                case 2:
+                    pid = Post.myPostsMenu();
                 case 3 -> mainMenu();
                 default -> System.out.println("Wrong input. Please try again");
             }
@@ -98,6 +97,7 @@ public class Interface {
     }
     */
 
+    /*
     public void myPostsMenu() throws IOException {
         do {
             System.out.println("""
@@ -121,34 +121,7 @@ public class Interface {
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
-
-    public void feedMenu() throws IOException {
-        do {
-            System.out.println("""
-                2.1 Like
-                2.2 Comment
-                2.3 Share
-                2.4 Report
-                2.5 Next post
-                2.6 Back
-                """);
-
-            selection();
-
-            switch (option) {
-                case 1 -> Interaction.addLike();
-                case 2 -> Interaction.addComment();
-                case 3 -> Interaction.sharePost();
-                case 4 -> Interaction.addReport();
-                case 5 -> {
-                    Post.nextPost();
-                    feedMenu();
-                }
-                case 6 -> mainMenu();
-                default -> System.out.println("Wrong input. Please try again");
-            }
-        } while (option != 1 & option != 2 & option != 3 & option != 4 & option != 5 & option != 6);
-    }
+     */
 
     public void logOut() throws IOException {
         welcomeMenu();
