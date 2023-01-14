@@ -1,16 +1,15 @@
 import java.io.File;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.FileOutputStream;
+
+import java.util.Scanner;
 
 public class SignUp {
 
-	public static int signUp() {
+	public static String signUp() {
 
 		String path = "users.txt";
 
@@ -67,9 +66,9 @@ public class SignUp {
 			System.err.println("Error");
 		}
 
-		String userid = String.valueof(userid);
+		String userid = String.valueOf(id);
 		Profile.createProfile(userid);
-		return userid;	
+		return userid;
 	}
 }
 
