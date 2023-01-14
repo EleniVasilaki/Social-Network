@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class SignUp {
 
-	public static void signUp() {
+	public static int signUp() {
 
 		String path = "users.txt";
 
@@ -69,7 +69,7 @@ public class SignUp {
 		} catch (Exception e) {
 			System.err.println("Error");
 		}
-
+		return id;		
 	}
 }
 

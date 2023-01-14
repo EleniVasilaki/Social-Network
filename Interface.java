@@ -1,14 +1,15 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Interface {
-    public static int option;
+    public static int option, uid, pid;
 
     public static void selection() {
         Scanner input = new Scanner(System.in);
         option = input.nextInt();
     }
 
-    public void welcomeMenu() {
+    public void welcomeMenu() throws IOException {
         do {
             System.out.println("""
                     1. Register
@@ -19,17 +20,17 @@ public class Interface {
 
             switch (option) {
                 case 1:
-                    SignIn.signIn();
+                    SignUp.signUp();
                     mainMenu();
                 case 2:
-                    Login.logIn();
+                    Login.login();
                     mainMenu();
                 default: System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & (option != 2));
     }
 
-    public void mainMenu() {
+    public void mainMenu() throws IOException {
         do {
             System.out.println("""
                     1. Profile
@@ -46,17 +47,16 @@ public class Interface {
                     Post.allPosts();
                     feedMenu();
                 }
-                case 3 -> CreatePost.createPostMethod();
+                case 3 -> Post.createPostMethod(uid);
                 case 4 -> {
-                    User.logOut();
-                    welcomeMenu();
+                    logOut();
                 }
                 default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
 
-    public void profileMenu() {
+    public void profileMenu() throws IOException {
         do {
             System.out.println("""
                     1.1 Edit profile
@@ -67,7 +67,7 @@ public class Interface {
             selection();
 
             switch (option) {
-                case 1 -> Profile.changeProfile(userId);
+                case 1 -> Profile.changeProfile(uid);
                 case 2 -> myPostsMenu();
                 case 3 -> mainMenu();
                 default -> System.out.println("Wrong input. Please try again");
@@ -98,7 +98,7 @@ public class Interface {
     }
     */
 
-    public void myPostsMenu() {
+    public void myPostsMenu() throws IOException {
         do {
             System.out.println("""
                 1.2.1 Edit
@@ -110,8 +110,8 @@ public class Interface {
             selection();
 
             switch (option) {
-                case 1 -> Post.editPost();
-                case 2 -> Post.deletePostMethod();
+                case 1 -> Post.EditPostMethod();
+                case 2 -> Post.deletePostMethod(pid);
                 case 3 -> {
                     Post.nextPost();
                     feedMenu();
@@ -122,7 +122,7 @@ public class Interface {
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
 
-    public void feedMenu() {
+    public void feedMenu() throws IOException {
         do {
             System.out.println("""
                 2.1 Like
@@ -148,5 +148,9 @@ public class Interface {
                 default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4 & option != 5 & option != 6);
+    }
+
+    public void logOut() throws IOException {
+        welcomeMenu();
     }
 }
