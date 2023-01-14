@@ -174,7 +174,7 @@ public class Post {
                 else
                 {
                   // Copy the original line to the new file since we don't want to delete this
-                  pw.println(currentLine);
+                  pw.println(currentLine); 
                 }
             
             }
@@ -196,12 +196,15 @@ public class Post {
     }
 
 	//nextPost method
-	public void nextPost(String userId) {
+	public void myPostsMenu(String userId) {
+        static boolean first = true;
+		try{
+            
+		    List<String> postArrayList = new ArrayList<String>();
+		    LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+			boolean flag = false;
+			int i = 0;
 
-         Scanner scanner = new Scanner(System.in);
-		 List<String> postArrayList = new ArrayList<String>();
-		 LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
-        try{
             do{
 
                 // read entire line as string
@@ -214,34 +217,45 @@ public class Post {
                 }
             
 			    //show first post
-			    for (int i= 0; i<postArrayList.size(); i++) {
+				if(first==true){
 				    if(userId==postArrayList.get(i)) {
-					    String firstpostdes = postArrayList.get(i+2);
-					    String firstpostlink = postArrayList.get(i+3);
+						String postid = postArrayList.get(i+1);
+					    String postdes = postArrayList.get(i+2);
+					    String postlink = postArrayList.get(i+3);
 
-					   System.out.println(firstpostdes +"\n"+ firstpostlink);
-					   break;
+					   System.out.println(postdes +"\n"+ postlink);
+					   first==false;
 				    }
+				}
+                System.out.println("1: Edit post \n" + "2: Delete post \n" + "3: Next Post \n" + "4: Go back to profile \n")
+				answer = scanner.nextInt();
+				Scanner scanner = new Scanner(System.in);
+			    
+			    if(answer==1){
+					EditPostMethod(userId, postid);
+				} else if(answer==2){
+				    deletePostMethod(userId, postid);
+				} else if(answer==3){
+					    i=i+4; 
+                        String postid = postArrayList.get(i+1);
+					    String nextpostdes = postArrayList.get(i+2);
+					    String nextpostlink = postArrayList.get(i+3);
 
-			    }
-			        //show next post
-			
-                do{
-			    System.out.println("Type 1 if you want to see next post")
-			    answer = scanner.nextInt();
-					int j=i+4; 
+					    System.out.println(postdes +"\n"+ postlink);
 
-					String nextpostdes = postArrayList.get(j+2);
-					String nextpostlink = postArrayList.get(j+3);
+						if (postArrayList.get(i + 4) == null) {       					
+       					System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
+       					first = true;
+       					} 
+				} else if(answer==4) { //Go back
+					profileMenu();
+					flag == false;
+				} else { //wrong input
+					System.out.println("Wrong input. Please enter 1, 2, 3 or 4 \n");
+				}
 
-					System.out.println(nextpostdes +"\n"+ nextpostlink);
-
-					j=j+4
-
-				} while(answer!=1)
-	   
-
-	}while()
+	   }while(postArrayList.get(i+4) != null)
+       reader.close;
 	} catch(Exception e) {
             System.out.println(e);
 	}
