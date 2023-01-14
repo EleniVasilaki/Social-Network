@@ -77,7 +77,7 @@ public class Profile{
 	//creates profile and saves data to the txt
 	public void createProfile(int userId) {
 			Scanner s = new Scanner(System.in);
-			System.out.println("Create your profile");
+			System.out.println("Create your Bio");
 			System.out.println("First name:");
 			String fn = s.next();
 			System.out.println("Last name:");
@@ -136,7 +136,7 @@ public class Profile{
 				"," + d6 + "," + d7);
 				pw.append(dataToBeSaved + "\n");
 				pw.close();
-				System.out.println("You have completed your profile");
+				System.out.println("You have completed your Bio");
 			} catch (IOException e1) {
 				System.out.println("An error has occurred");
 			}
@@ -176,7 +176,7 @@ public class Profile{
 		Profile p = new Profile();
 		String[] d = p.getProfile(userId);
 		if(d.length == 8) {
-		     System.out.println("My profile");
+		     System.out.println("My Bio");
 		     System.out.println("First name :" + d[1]);
 		     System.out.println("Last name: " + d[2]);
 		     System.out.println("Field of interest: " + d[3]);
@@ -189,15 +189,16 @@ public class Profile{
 	}
 	// makes changes in txt file by replacing the old line
 	public static void changeProfile(int userId) {
+		viewProfile(userId);
 		String[] data = new String[8];
 		data = getProfile(userId);
-	    System.out.println("Press 1 to change your first name");
-	    System.out.println("Press 2 to change your last name");
-		System.out.println("Press 3 to change your field of interest");
-	    System.out.println("Press 4 to change the day of birth");
-		System.out.println("Press 5 to change the month of birth");
-		System.out.println("Press 6 to change the year of birth");
-		System.out.println("Press 7 to change your level of education");
+	    System.out.println('\n' + "1. change first name");
+	    System.out.println("2. change last name");
+		System.out.println("3. change field of interest");
+	    System.out.println("4. change day of birth");
+		System.out.println("5. change month of birth");
+		System.out.println("6. change year of birth");
+		System.out.println("7. change level of education");
 	    Scanner s2 = new Scanner(System.in);
 		int ans = s2.nextInt();
 		System.out.println("Enter the new value:");
@@ -254,8 +255,104 @@ public class Profile{
 			FileWriter writer = new FileWriter("ProfileData.txt");
 			writer.append(fileContents);
 			writer.flush();
+			System.out.println("You have successfully changed your Bio");
 		} catch(IOException e) {
 			System.out.println("An error has occured");
 		}
 	}
+
+	//changes the username
+	public void changeUsername(int userId) {
+		String[] data = new String[3];
+		String currentLine;
+		boolean found = false;
+		String oldLine = "";
+		String newLine = "";
+		String newUN ;
+		String userID = String.valueOf(userId);
+		try {
+			FileReader fr = new FileReader("users.txt");
+			BufferedReader br = new BufferedReader(fr);
+			while((currentLine = br.readLine()) != null) {
+				data = currentLine.split(",");
+				if(userID.equals(data[0])) {
+					found = true;
+					break;
+				}
+			}
+			if(found) {
+				System.out.println("My username: " + data[1]);
+	            System.out.println("Enter new username");
+	            Scanner sc = new Scanner(System.in);
+                newUN = sc.next();
+                sc.close();
+                oldLine = data[0] + "," + data[1] + "," + data[2];
+                newLine = data[0] + "," + newUN + "," + data[2];
+                Scanner s2 = new Scanner(new File("users.txt"));
+                StringBuffer buffer = new StringBuffer();
+                while(s2.hasNextLine()) {
+					buffer.append(s2.nextLine() + System.lineSeparator());
+				}
+				String fileContents = buffer.toString();
+				s2.close();
+				fileContents = fileContents.replaceAll(oldLine, newLine);
+				FileWriter writer = new FileWriter("users.txt");
+				writer.append(fileContents);
+				writer.flush();
+				System.out.println("You have successfully changed your username");
+			}
+		} catch(FileNotFoundException e1) {
+			System.out.println("File Not Found");
+		} catch(IOException e2) {
+			System.out.println("Error");
+		}
+	}
+
+	//changes the password
+	public void changePassword(int userId) {
+			String[] data = new String[3];
+			String currentLine;
+			boolean found = false;
+			String oldLine = "";
+			String newLine = "";
+			String newPW;
+			String userID = String.valueOf(userId);
+			try {
+				FileReader fr = new FileReader("users.txt");
+				BufferedReader br = new BufferedReader(fr);
+				while((currentLine = br.readLine()) != null) {
+					data = currentLine.split(",");
+					if(userID.equals(data[0])) {
+						found = true;
+						break;
+					}
+				}
+				if(found) {
+					System.out.println("My password: " + data[2]);
+		            System.out.println("Enter new password");
+		            Scanner sc = new Scanner(System.in);
+	                newPW = sc.next();
+	                sc.close();
+	                oldLine = data[0] + "," + data[1] + "," + data[2];
+	                newLine = data[0] + "," + data[1] + "," + newPW;
+	                Scanner s2 = new Scanner(new File("users.txt"));
+	                StringBuffer buffer = new StringBuffer();
+	                while(s2.hasNextLine()) {
+						buffer.append(s2.nextLine() + System.lineSeparator());
+					}
+					String fileContents = buffer.toString();
+					s2.close();
+					fileContents = fileContents.replaceAll(oldLine, newLine);
+					FileWriter writer = new FileWriter("users.txt");
+					writer.append(fileContents);
+					writer.flush();
+					System.out.println("You have successfully changed your password");
+				}
+			} catch(FileNotFoundException e1) {
+				System.out.println("File Not Found");
+			} catch(IOException e2) {
+				System.out.println("Error");
+			}
+		}
+
 }
