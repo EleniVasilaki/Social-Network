@@ -9,7 +9,9 @@ public class Feed {
 	static boolean firstTime = true;
    	
     public static void feedMethod (String userID) {	
-    	
+
+		Interface interf = new Interface();
+
     	try {
     		
         	boolean flag = false;
@@ -65,15 +67,15 @@ public class Feed {
 
        			} else if (option == 3) {     		//Like Code		
        				System.out.println(postID);
-        			like(userID, postID); 
+        			Interaction.like(userID, postID); 
         			System.out.println("You liked the post \n");
         			
        			} else if (option == 4) {			//Count of Likes Code
-					numOfLikes = likes(postID); 
+					numOfLikes = Interaction.likes(postID); 
        				System.out.println("Number of likes :" + numOfLikes + "\n");
        				
        			} else if (option == 5) {   
-					mainMenu();    	// Go Back Code			
+					interf.mainMenu();    	// Go Back Code			
        				flag = false; 
        				
         		} else {       						//Wrong Input Code
