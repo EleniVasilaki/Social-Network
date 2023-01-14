@@ -130,9 +130,10 @@ public class Post {
 	}
 
     //Delete Method
-    public static void deletePostMethod(String filepath, String postId) {
+    public static void deletePostMethod(String postId, String userId) {
         //creating a temporary file to make changes in
-        String tempFile = "tempPostId_data.txt";
+		String filepath = ".\\post.txt"
+        String tempFile = "tempPost.txt";
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
 
@@ -141,7 +142,7 @@ public class Post {
 
 
         try
-        {   //boolean value true because we are adding to the existing file, not overwriting it
+		{   //boolean value true because we are adding to the existing file, not overwriting it
             // creating objects to read and write to the file
             FileWriter fw = new FileWriter(tempFile,true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -150,25 +151,32 @@ public class Post {
             FileReader fr = new FileReader(filepath);
             BufferedReader br = new BufferedReader(fr);
             //while loop continues till there are no more lines to read to the file
+			
             while((currentLine = br.readLine()) !=null)
-            {
+            {   
                 System.out.println("Reading Line " + line);
                 line++;
-                if (currentLine.contains(postId))
-                {
-                    System.out.println("Found Post with ID " + postId);
-                    // Don't copy these 4 lines in the new file
-                    br.readLine();
-                    br.readLine();
-                    br.readLine();
-                    br.readLine();
-                }
+
+                if (currentLine.contains(userId))
+				{    
+					String l = Integer.toString(line);
+		
+				    if (l.contains(postid)) {
+
+                        System.out.println("Found Post with ID " + postId);
+                        // Don't copy these 4 lines in the new file
+                        br.readLine();
+                        br.readLine();
+                        br.readLine();
+                        br.readLine();
+                   }
+				}
                 else
                 {
                   // Copy the original line to the new file since we don't want to delete this
                   pw.println(currentLine);
                 }
-                //line counter
+            
             }
 
             pw.flush();
@@ -186,4 +194,55 @@ public class Post {
             System.out.println(e);
         }
     }
+
+	//nextPost method
+	public void nextPost(String userId) {
+
+         Scanner scanner = new Scanner(System.in);
+		 List<String> postArrayList = new ArrayList<String>();
+		 LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+        try{
+            do{
+
+                // read entire line as string
+                String line = reader.readLine();
+       
+                // checking for end of file
+                while (line != null) {
+                    postArrayList.add(line);
+                    line = reader.readLine();
+                }
+            
+			    //show first post
+			    for (int i= 0; i<postArrayList.size(); i++) {
+				    if(userId==postArrayList.get(i)) {
+					    String firstpostdes = postArrayList.get(i+2);
+					    String firstpostlink = postArrayList.get(i+3);
+
+					   System.out.println(firstpostdes +"\n"+ firstpostlink);
+					   break;
+				    }
+
+			    }
+			        //show next post
+			
+                do{
+			    System.out.println("Type 1 if you want to see next post")
+			    answer = scanner.nextInt();
+					int j=i+4; 
+
+					String nextpostdes = postArrayList.get(j+2);
+					String nextpostlink = postArrayList.get(j+3);
+
+					System.out.println(nextpostdes +"\n"+ nextpostlink);
+
+					j=j+4
+
+				} while(answer!=1)
+	   
+
+	}while()
+	} catch(Exception e) {
+            System.out.println(e);
+	}
 }
