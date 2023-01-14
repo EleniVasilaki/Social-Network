@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Interaction {
-    public static void checkInteractions(int uid, int pid) {
+    public static void checkInteractions(String uid, String pid) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
             String line;
@@ -10,7 +10,7 @@ public class Interaction {
             // Checks if any interaction by any user has ever happened in any post.
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid) {
+                if (values[0].equals(uid) && values[1].equals(pid)) {
                     found = true;
                     break;
                 }
@@ -28,7 +28,7 @@ public class Interaction {
         }
     }
 
-    public static void like(int uid, int pid) {
+    public static void like(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
@@ -37,7 +37,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                if (values[0].equals(uid) && values[1].equals(pid) && values[2].equals("false")) {
                     found = true;
                     line = uid + "," + pid + ",true," + values[3] + "," + values[4] + "," + values[5];
                     System.out.println("Post successfully liked!");
@@ -59,14 +59,14 @@ public class Interaction {
     }
 
     // Counts how many times a post (pid) has been liked.
-    public static int likes(int pid) {
+    public static int likes(String pid) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[1]) == pid && values[2].equals("true")) {
+                if (values[1].equals(pid) && values[2].equals("true")) {
                     count++;
                 }
             }
@@ -78,7 +78,7 @@ public class Interaction {
         }
     }
 
-    public static void comment(int uid, int pid) {
+    public static void comment(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
@@ -87,7 +87,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && (values[3].equals("") || !values[3].equals(""))) {
+                if (values[0].equals(uid) && values[1].equals(pid) && (values[3].equals("") || !values[3].equals(""))) {
                     found = true;
 
                     System.out.println("Post a comment:");
@@ -113,14 +113,14 @@ public class Interaction {
     }
 
     // Counts how many comments a post (pid) has got.
-    public static int comments(int pid) {
+    public static int comments(String pid) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[1]) == pid && !values[3].equals("")) {
+                if (values[1].equals(pid) && !values[3].equals("")) {
                     count++;
                 }
             }
@@ -132,7 +132,7 @@ public class Interaction {
         }
     }
 
-    public static void sharePost(int uid, int pid) {
+    public static void sharePost(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
@@ -141,7 +141,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                if (values[0].equals(uid) && values[1].equals(pid) && values[2].equals("false")) {
                     found = true;
                     line = uid + "," + pid + "," + values[2] + "," + values[3] + ",true," + values[5];
                     System.out.println("You shared the post #" + pid);
@@ -162,14 +162,14 @@ public class Interaction {
         }
     }
 
-    public static int shares(int pid) {
+    public static int shares(String pid) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[1]) == pid && !values[4].equals("true")) {
+                if (values[1].equals(pid) && !values[4].equals("true")) {
                     count++;
                 }
             }
@@ -181,7 +181,7 @@ public class Interaction {
         }
     }
 
-    public static void report(int uid, int pid) {
+    public static void report(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
@@ -190,7 +190,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[0]) == uid && Integer.parseInt(values[1]) == pid && values[2].equals("false")) {
+                if (values[0].equals(uid) && values[1].equals(pid) && values[2].equals("false")) {
                     found = true;
                     line = uid + "," + pid + "," + values[2] + "," + values[3] + "," + values[4] + ",true";
                     System.out.println("Post #" + pid + " successfully reported!");
@@ -211,14 +211,14 @@ public class Interaction {
         }
     }
 
-    public static int reports(int pid) {
+    public static int reports(String pid) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (Integer.parseInt(values[1]) == pid && !values[5].equals("true")) {
+                if (values[1].equals(pid) && !values[5].equals("true")) {
                     count++;
                 }
             }

@@ -13,7 +13,7 @@ import java.io.File;
 
 public class Post {
     //Create Post Method	
-	public void createPostMethod(String userID) {
+	public static void createPostMethod(String userID) {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
         StringBuilder buffer = new StringBuilder(10);

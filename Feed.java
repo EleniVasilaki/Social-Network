@@ -39,6 +39,7 @@ public class Feed {
         		Scanner in = new Scanner(System.in);
                
         		int option = in.nextInt(); 
+				int numOfLikes;
        			flag = true;
        			
        			if (option == 1) {       		//Next Post Code		
@@ -68,8 +69,8 @@ public class Feed {
         			System.out.println("You liked the post \n");
         			
        			} else if (option == 4) {			//Count of Likes Code
-       				Interaction.likes(postID); 
-       				System.out.println("Number of likes :" + "\n");
+					numOfLikes = Interaction.likes(postID); 
+       				System.out.println("Number of likes :" + numOfLikes + "\n");
        				
        			} else if (option == 5) {       	// Go Back Code			
        				flag = false; 
