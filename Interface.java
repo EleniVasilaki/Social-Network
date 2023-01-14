@@ -30,7 +30,7 @@ public class Interface {
         } while (option != 1 & (option != 2));
     }
 
-    public void mainMenu() {
+    public void mainMenu() throws IOException {
         do {
             System.out.println("""
                     1. Profile
@@ -49,15 +49,14 @@ public class Interface {
                 }
                 case 3 -> Post.createPostMethod(uid);
                 case 4 -> {
-                    User.logOut();
-                    welcomeMenu();
+                    logOut();
                 }
                 default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
 
-    public void profileMenu() {
+    public void profileMenu() throws IOException {
         do {
             System.out.println("""
                     1.1 Edit profile
@@ -99,7 +98,7 @@ public class Interface {
     }
     */
 
-    public void myPostsMenu() {
+    public void myPostsMenu() throws IOException {
         do {
             System.out.println("""
                 1.2.1 Edit
@@ -123,7 +122,7 @@ public class Interface {
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
 
-    public void feedMenu() {
+    public void feedMenu() throws IOException {
         do {
             System.out.println("""
                 2.1 Like
@@ -149,5 +148,9 @@ public class Interface {
                 default -> System.out.println("Wrong input. Please try again");
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4 & option != 5 & option != 6);
+    }
+
+    public void logOut() throws IOException {
+        welcomeMenu();
     }
 }
