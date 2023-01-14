@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Interface {
     public static int option;
-    public static String uid, pid;
+    public static String uid;
 
     public void selection() {
         Scanner input = new Scanner(System.in);
