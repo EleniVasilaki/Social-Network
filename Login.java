@@ -17,7 +17,7 @@ public class Login {
         int flag = 0;
         BufferedReader br = new BufferedReader(new FileReader("users.txt"));
         while ((line = br.readLine()) != null) {
-            String[] column = line.split(";");
+            String[] column = line.split(",");
             try {
                 if ((userName.equals(column[1])) && (password.equals(column[2]))) {
                    flag = 1;
