@@ -198,6 +198,7 @@ public class Post {
 	//nextPost method
 	public void myPostsMenu(String userId) {
         static boolean first = true;
+		Interface obj = new Interface();
 		try{
             
 		    List<String> postArrayList = new ArrayList<String>();
@@ -248,7 +249,7 @@ public class Post {
        					first = true;
        					} 
 				} else if(answer==4) { //Go back
-					profileMenu();
+					obj.profileMenu();
 					flag == false;
 				} else { //wrong input
 					System.out.println("Wrong input. Please enter 1, 2, 3 or 4 \n");
