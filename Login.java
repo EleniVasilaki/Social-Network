@@ -7,10 +7,10 @@ import java.util.Scanner;
 public class Login {
     public static String login() throws IOException {
         Scanner myobj1 = new Scanner(System.in);
-        System.out.println("Please enter your Username");
+        System.out.println("Please enter your username");
         String userName = myobj1.next();
         Scanner myobj2 = new Scanner(System.in);
-        System.out.println("Please enter your Password");
+        System.out.println("Please enter your password");
         String password = myobj2.next();
         String userid = "-1";
         String line;
@@ -25,7 +25,7 @@ public class Login {
                    userid = column[0];
                 }
             } catch (Exception e) {
-                System.err.println("error");
+                System.err.println("An error has occurred ");
             }    
         }
         if (flag == true) {

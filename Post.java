@@ -25,7 +25,7 @@ public class Post {
         }
         String postID = buffer.toString();
         //The code above generates PostID
-        System.out.println("click 1 to add a description to your post" + "\n" + "click 2 to add text/link for your post");
+        System.out.println("1. Add description" + "\n" + "2. Add text/link");
         int option = in.nextInt();
         try {
 			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
@@ -59,11 +59,11 @@ public class Post {
 				writer.close();
 				in.close();			
 			} else {
-				System.out.println("Please insert 1 or 2");
+				System.out.println("Please enter 1 or 2");
 			}
 		} catch (IOException e) {
 			//e.printStackTrace();
-			System.out.println("Please insert 1 or 2");
+			System.out.println("Please enter 1 or 2");
 		}
     }
     //Edit Method
@@ -239,7 +239,7 @@ public class Post {
 						first = false;
 					}
 				}
-				System.out.println("1: Edit post \n" + "2: Delete post \n" + "3: Next Post \n" + "4: Go back to profile \n");
+				System.out.println("1. Edit post \n" + "2. Delete post \n" + "3. Next Post \n" + "4. Go back to profile \n");
 				Scanner scanner = new Scanner(System.in);
 				int answer = scanner.nextInt();
 
@@ -256,7 +256,7 @@ public class Post {
 					System.out.println(postdes + "\n" + postlink);
 
 						if (postArrayList.get(i + 4) == null) {       					
-       					System.out.println("You have reached the end of you posts\n" + "Sending you back to your first post \n");
+       					System.out.println("You have reached the end of your posts\n" + "Sending you back to your first post \n");
        					first = true;
 						i = 0;
        					} 

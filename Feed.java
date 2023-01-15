@@ -35,8 +35,8 @@ public class Feed {
         			firstTime = false;
         		}
         		
-       			System.out.println("1: Next post \n" + "2: Previous post \n"
-       					+ "3: Like \n" + "4: See number of likes \n" + "5: Go back \n");
+       			System.out.println("1. Next post \n" + "2. Previous post \n"
+       					+ "3. Like \n" + "4. See number of likes \n" + "5. Go back \n");
        			
         		Scanner in = new Scanner(System.in);
                
@@ -50,7 +50,7 @@ public class Feed {
        				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");
        				
        				if (listOfStrings.get(i + 1) == null) {       					
-       					System.out.println("You reached the end of the feed \n" + "Sending you to the start of the feed \n");
+       					System.out.println("You have reached the end of the feed \n" + "Sending you back to the start of the feed \n");
        					firstTime = true;
        					throw new NullPointerException();       					
        				} 
@@ -59,7 +59,7 @@ public class Feed {
        				i -= 4;
        				
        				if (i <= -1) {      					
-       					System.out.println("Previous posts dont exist \n");  
+       					System.out.println("Previous posts don't exist \n");  
        					
        				} else {
            				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");	

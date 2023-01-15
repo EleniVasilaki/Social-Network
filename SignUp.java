@@ -45,7 +45,7 @@ public class SignUp {
 		}catch (FileNotFoundException e) {
 			System.err.println("Unable to open file " + path);
 		} catch (Exception e) {
-			System.err.println("Error");
+			System.err.println("An error has occurred");
 		}
 
 		System.out.println("Please enter a password");
@@ -63,7 +63,7 @@ public class SignUp {
 			System.err.println("Unable to open file ");
 
 		} catch (Exception e) {
-			System.err.println("Error");
+			System.err.println("An error has occurred");
 		}
 
 		String userid = String.valueOf(id);
