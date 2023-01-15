@@ -405,7 +405,7 @@ public class Post {
 		    LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
 			// read entire line as string
 			String line = reader.readLine();
-			boolean flag = false;
+			boolean flag = true;
 			int i = 0;
 
 			do {
@@ -444,14 +444,14 @@ public class Post {
 					deletePostMethod(userId, postid);
 				} else if (answer == 3) {
 					i = i + 4;
-					String postid = postArrayList.get(i + 1);
-					String nextpostdes = postArrayList.get(i + 2);
-					String nextpostlink = postArrayList.get(i + 3);
+					postid = postArrayList.get(i + 1);
+					nextpostdes = postArrayList.get(i + 2);
+					nextpostlink = postArrayList.get(i + 3);
 
 					System.out.println(nextpostdes + "\n" + nextpostlink);
 
 						if (postArrayList.get(i + 4) == null) {       					
-       					System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
+       					System.out.println("You have reached the end of you posts\n" + "Sending you back to your first post \n");
        					first = true;
 						i = 0;
        					} 
@@ -462,7 +462,7 @@ public class Post {
 					System.out.println("Wrong input. Please enter 1, 2, 3 or 4 \n");
 				}
 
-			} while (postArrayList.get(i + 4) != null);
+			} while (postArrayList.get(i + 4) != null && flag == true);
 			reader.close();
 		} catch (Exception e) {
 			System.out.println(e);
