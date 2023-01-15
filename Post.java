@@ -220,7 +220,7 @@ public class Post {
 				}
 
 				//show first post
-				if (first) {
+				if (first == true) {
 					if (userId == postArrayList.get(i)) {
 						String postid = postArrayList.get(i + 1);
 						String postdes = postArrayList.get(i + 2);
@@ -240,16 +240,18 @@ public class Post {
 					deletePostMethod(userId, postid);
 				} else if (answer == 3) {
 					i = i + 4;
-					String postid = postArrayList.get(i + 1);
-					String nextpostdes = postArrayList.get(i + 2);
-					String nextpostlink = postArrayList.get(i + 3);
+                    if (userId == postArrayList.get(i+4)) {
+					    postid = postArrayList.get(i + 1);
+					    postdes = postArrayList.get(i + 2);
+					    postlink = postArrayList.get(i + 3);
 
-					System.out.println(postdes + "\n" + postlink);
+					    System.out.println(postdes + "\n" + postlink);
+					}
 
-						if (postArrayList.get(i + 4) == null) {       					
-       					System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
-       					first = true;
-       					} 
+					if (postArrayList.get(i + 4) == null) {       					
+       				System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
+       				first = true;
+       				} 
 				} else if(answer==4) { //Go back
 					obj.profileMenu();
 					flag == false;
