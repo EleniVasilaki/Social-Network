@@ -1,37 +1,49 @@
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interface {
-    public static int option;
     public static String uid;
 
-    public static void selection() {
+    public static int selection() {
         Scanner input = new Scanner(System.in);
-        option = input.nextInt();
+        while (true) {
+            try {
+                return input.nextInt();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                System.out.println("Error: Please enter a valid integer.");
+            }
+        }
     }
 
     public static void welcomeMenu() throws IOException {
+        int option;
         do {
             System.out.println("""
                     1. Register
                     2. Login
                     """);
 
-            selection();
+            option = selection();
 
             switch (option) {
                 case 1:
                     uid = SignUp.signUp();
                     mainMenu();
+                    break;
                 case 2:
                     uid = Login.login();
                     mainMenu();
-                default: System.out.println("Wrong input. Please try again");
+                    break;
+                default:
+                    System.out.println("Wrong input. Please try again");
             }
-        } while (option != 1 & (option != 2));
+        } while (option != 1 && (option != 2));
     }
 
     public static void mainMenu() throws IOException {
+        int option;
         do {
             System.out.println("""
                     1. Profile
@@ -40,20 +52,30 @@ public class Interface {
                     4. Log out
                     """);
 
-            selection();
+            option = selection();
 
             switch (option) {
-                case 1 -> profileMenu();
-                case 2 -> Feed.feedMethod(uid);
-                case 3 -> Post.createPostMethod(uid);
-                case 4 -> logOut();
-                default -> System.out.println("Wrong input. Please try again");
+                case 1:
+                    profileMenu();
+                    break;
+                case 2:
+                    Feed.feedMethod(uid);
+                    break;
+                case 3:
+                    Post.createPostMethod(uid);
+                    break;
+                case 4:
+                    logOut();
+                    break;
+                default:
+                    System.out.println("Wrong input. Please try again");
             }
-        } while (option != 1 & option != 2 & option != 3 & option != 4);
+        } while (option != 1 && option != 2 && option != 3 && option != 4);
     }
     
     public static void profileMenu() throws IOException {
         Post obj = new Post();
+        int option;
         do {
             System.out.println("""
                     1.1 Edit profile
@@ -61,18 +83,26 @@ public class Interface {
                     1.3 Back
                     """);
 
-            selection();
+            option = selection();
 
             switch (option) {
-                case 1 -> Profile.changeProfile(uid);
-                case 2 -> obj.myPostsMenu(uid);
-                case 3 -> mainMenu();
-                default -> System.out.println("Wrong input. Please try again");
+                case 1:
+                    Profile.changeProfile(uid);
+                    break;
+                case 2:
+                    obj.myPostsMenu(uid);
+                    break;
+                case 3:
+                    mainMenu();
+                    break;
+                default:
+                    System.out.println("Wrong input. Please try again");
             }
-        } while (option != 1 & option != 2 & option != 3);
+        } while (option != 1 && option != 2 && option != 3);
     }
 
     public static void logOut() throws IOException {
+        System.out.println("You have been logged out!");
         welcomeMenu();
     }
 }
