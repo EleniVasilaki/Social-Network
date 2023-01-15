@@ -103,16 +103,16 @@ public class Profile{
 			   switch(answ) {
 				   case 1:
 				   lOFe = "High School";
-				   
+				   break;
 				   case 2:
 				   lOFe = "Bsc";
-				   
+				   break;
 				   case 3:
 				   lOFe = "Msc";
-				   
+				   break;
 				   case 4:
 				   lOFe = "Phd";
-				   
+				   break;
 				   default:
 				   System.out.println("Wrong input. Try again");
 			   }
@@ -188,7 +188,7 @@ public class Profile{
 	}
 	// makes changes in txt file by replacing the old line
 	public static void changeProfile(String userId) {
-		
+
 		viewProfile(userId);
 		String[] data = new String[8];
 		data = getProfile(userId);
