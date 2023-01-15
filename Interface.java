@@ -5,12 +5,12 @@ public class Interface {
     public static int option;
     public static String uid;
 
-    public void selection() {
+    public static void selection() {
         Scanner input = new Scanner(System.in);
         option = input.nextInt();
     }
 
-    public void welcomeMenu() throws IOException {
+    public static void welcomeMenu() throws IOException {
         do {
             System.out.println("""
                     1. Register
@@ -31,7 +31,7 @@ public class Interface {
         } while (option != 1 & (option != 2));
     }
 
-    public void mainMenu() throws IOException {
+    public static void mainMenu() throws IOException {
         do {
             System.out.println("""
                     1. Profile
@@ -52,7 +52,7 @@ public class Interface {
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
 
-    public void profileMenu() throws IOException {
+    public static void profileMenu() throws IOException {
         do {
             System.out.println("""
                     1.1 Edit profile
@@ -71,7 +71,7 @@ public class Interface {
         } while (option != 1 & option != 2 & option != 3);
     }
 
-    public void logOut() throws IOException {
+    public static void logOut() throws IOException {
         welcomeMenu();
     }
 }

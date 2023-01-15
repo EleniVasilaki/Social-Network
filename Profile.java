@@ -75,7 +75,7 @@ public class Profile{
 		return levelOfEducation;
 	}
 	//creates profile and saves data to the txt
-	public void createProfile(String userId) {
+	public static void createProfile(String userId) {
 			Scanner s = new Scanner(System.in);
 			System.out.println("Create your Bio");
 			System.out.println("First name:");

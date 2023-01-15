@@ -1,41 +1,36 @@
 import java.io.File;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.FileOutputStream;
+
+import java.util.Scanner;
 
 public class SignUp {
 
-	public static int signUp() {
+	public static String signUp() {
 
 		String path = "users.txt";
 
 		System.out.println("Please enter a username");
 		boolean x = true;
-		String un ="";
+		String username ="";
 		String line;
-		BufferedReader br = null;
-		int id = 0;
-
-		try {
-			br = new BufferedReader(new FileReader(path));
-		}catch (FileNotFoundException e) {
-		   System.err.println("Unable to open file " + path);
-   		}
+		int id = 1;
 
 		try {
 			do
 			{
 				Scanner input = new Scanner(System.in);
-				String username = input.next();
-				un = username;
-
+				username = input.next();
+				id = 1;
+				FileReader fr = new FileReader("users.txt");
+				BufferedReader br = new BufferedReader(fr);
+				
 				while((line = br.readLine()) != null) {
-
+					
+					id++;
 					String[] column = line.split(",");
 
 					if (username.equals(column[1])) {
@@ -46,10 +41,9 @@ public class SignUp {
 						x = true;
 					}
 				}
-				id++;
 			} while (x == false);
-			br.close();
-
+		}catch (FileNotFoundException e) {
+			System.err.println("Unable to open file " + path);
 		} catch (Exception e) {
 			System.err.println("Error");
 		}
@@ -57,20 +51,24 @@ public class SignUp {
 		System.out.println("Please enter a password");
 		Scanner in = new Scanner (System.in);
 	    	String password = in.next();
-		
-		System.out.println("Please enter a password");
-		Scanner in = new Scanner (System.in);
-		String password = in.next();
 
-		try (FileWriter f = new FileWriter(path, true);
-			BufferedWriter b = new BufferedWriter(f);
-			PrintWriter p = new PrintWriter(b);) {
-				p.printf("%d,%s,%s \n",id,username,password);
-		} catch (IOException i) { 
-			i.printStackTrace(); 
+		try {
+			File file = new File(path);
+			PrintWriter pw = new PrintWriter(new FileOutputStream(file,true));
+			String dataToBeSaved = (id + "," + username + "," + password);
+			pw.append(dataToBeSaved + "\n");
+			pw.close();
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Unable to open file ");
+
+		} catch (Exception e) {
+			System.err.println("Error");
 		}
-	    	Profile.createProfile();
-		return id;		
+
+		String userid = String.valueOf(id);
+		Profile.createProfile(userid);
+		return userid;
 	}
 }
 

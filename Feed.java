@@ -9,7 +9,9 @@ public class Feed {
 	static boolean firstTime = true;
    	
     public static void feedMethod (String userID) {	
-    	
+
+		Interface interf = new Interface();
+
     	try {
     		
         	boolean flag = false;
@@ -72,7 +74,8 @@ public class Feed {
 					numOfLikes = Interaction.likes(postID); 
        				System.out.println("Number of likes :" + numOfLikes + "\n");
        				
-       			} else if (option == 5) {       	// Go Back Code			
+       			} else if (option == 5) {   
+					interf.mainMenu();    	// Go Back Code			
        				flag = false; 
        				
         		} else {       						//Wrong Input Code
