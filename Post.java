@@ -207,21 +207,21 @@ public class Post {
 
             do{
 
-                // read entire line as string
-                String line = reader.readLine();
-       
-                // checking for end of file
-                while (line != null) {
-                    postArrayList.add(line);
-                    line = reader.readLine();
-                }
-            
-			    //show first post
-				if(first==true){
-				    if(userId==postArrayList.get(i)) {
-						String postid = postArrayList.get(i+1);
-					    String postdes = postArrayList.get(i+2);
-					    String postlink = postArrayList.get(i+3);
+				// read entire line as string
+				String line = reader.readLine();
+
+				// checking for end of file
+				while (line != null) {
+					postArrayList.add(line);
+					line = reader.readLine();
+				}
+
+				//show first post
+				if (first == true) {
+					if (userId == postArrayList.get(i)) {
+						String postid = postArrayList.get(i + 1);
+						String postdes = postArrayList.get(i + 2);
+						String postlink = postArrayList.get(i + 3);
 
 					   System.out.println(postdes +"\n"+ postlink);
 					   first==false;
@@ -233,20 +233,20 @@ public class Post {
 			    
 			    if(answer==1){
 					EditPostMethod(userId, postid);
-				} else if(answer==2){
-				    deletePostMethod(userId, postid);
-				} else if(answer==3){
-					    i=i+4; 
-                        String postid = postArrayList.get(i+1);
-					    String nextpostdes = postArrayList.get(i+2);
-					    String nextpostlink = postArrayList.get(i+3);
+				} else if (answer == 2) {
+					deletePostMethod(userId, postid);
+				} else if (answer == 3) {
+					i = i + 4;
+					String postid = postArrayList.get(i + 1);
+					String nextpostdes = postArrayList.get(i + 2);
+					String nextpostlink = postArrayList.get(i + 3);
 
-					    System.out.println(postdes +"\n"+ postlink);
+					System.out.println(postdes + "\n" + postlink);
 
-						if (postArrayList.get(i + 4) == null) {       					
-       					System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
-       					first = true;
-       					} 
+					if (postArrayList.get(i + 4) == null) {       					
+       				System.out.println("You have reached the end of you posts\n" + "Sending you back to the first post \n");
+       				first = true;
+       				} 
 				} else if(answer==4) { //Go back
 					profileMenu();
 					flag == false;
