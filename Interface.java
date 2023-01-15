@@ -51,8 +51,9 @@ public class Interface {
             }
         } while (option != 1 & option != 2 & option != 3 & option != 4);
     }
-
+    
     public static void profileMenu() throws IOException {
+        Post obj = new Post();
         do {
             System.out.println("""
                     1.1 Edit profile
@@ -64,7 +65,7 @@ public class Interface {
 
             switch (option) {
                 case 1 -> Profile.changeProfile(uid);
-                case 2 -> Post.myPostsMenu(uid);
+                case 2 -> obj.myPostsMenu(uid);
                 case 3 -> mainMenu();
                 default -> System.out.println("Wrong input. Please try again");
             }
