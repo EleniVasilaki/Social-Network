@@ -14,29 +14,25 @@ public class Login {
         String password = myobj2.next();
         String userid = "-1";
         String line;
-        int flag = 0;
+        boolean flag = false;
+  
         BufferedReader br = new BufferedReader(new FileReader("users.txt"));
         while ((line = br.readLine()) != null) {
             String[] column = line.split(",");
             try {
                 if ((userName.equals(column[1])) && (password.equals(column[2]))) {
-                   flag = 1;
+                   flag = true;
+                   userid = column[0];
                 }
-                else if ((userName.equals(column[1])) && (!Objects.equals(password, column[2]))) {
-                   flag = 0;
-                }else if ((password.equals(column[1])) && (!userName.equals(column[2]))) {
-                    flag = 0;
-                }
-
             } catch (Exception e) {
                 System.err.println("error");
-            }
-            userid = column[0];
+            }    
         }
-        if (flag == 1) {
+        if (flag == true) {
             System.out.println("Access granted! Welcome!");
         } else {
             System.out.println("Access denied! Invalid Username or Password");
+            Interface.welcomeMenu();
         }
         return userid;
     }
