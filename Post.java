@@ -65,6 +65,11 @@ public class Post {
 			//e.printStackTrace();
 			System.out.println("Please insert 1 or 2");
 		}
+		try {
+			Interface.mainMenu();
+		} catch (IOException e) {
+
+		}	
     }
     //Edit Method
 
