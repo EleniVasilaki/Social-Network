@@ -147,6 +147,20 @@ public class Interaction {
         }
     }
 
+    public static void seeComments(String pid) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] comments = line.split(",");
+                if (comments[1].equals(pid) && !comments[3].equals("")) {
+                    System.out.println(comments[3]);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void sharePost(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
