@@ -51,7 +51,7 @@ public class SignUp {
 		}
 
 		System.out.println("Please enter a password");
-	    String password = input.next();
+	    String password = Interface.input.nextLine();
 
 		try {
 			File file = new File(path);
