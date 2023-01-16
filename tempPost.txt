@@ -3,7 +3,6 @@ XINIJJaPN_
 sda
 dasd
 7
-I\JP_\\^\O
 descr
 link
 7

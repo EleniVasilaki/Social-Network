@@ -18,7 +18,7 @@ public class SignUp {
 		String username ="";
 		String line;
 		int id = 1;
-		username = Interface.input.nextLine();
+		username = Interface.input.next();
 
 		try {
 
@@ -51,7 +51,7 @@ public class SignUp {
 		}
 
 		System.out.println("Please enter a password");
-	    String password = input.next();
+	    String password = Interface.input.next();
 
 		try {
 			File file = new File(path);

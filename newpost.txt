@@ -4,7 +4,7 @@ sda
 dasd
 7
 I\JP_\\^\O
-descr
+new
 link
 7
 OWJPLUSRLJ

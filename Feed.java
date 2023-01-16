@@ -18,17 +18,17 @@ public class Feed {
         	LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
         	ArrayList<String> listOfStrings = new ArrayList<String>();
         	int i = 3;
+			String strLine;
+			String postID = null;
+			while((strLine = reader.readLine()) != null) {
+				listOfStrings.add(strLine);
+			}
+			
+		 	listOfStrings.add(null);
         	
         	do {       
-       			String strLine;
-       			String postID = null;
-               
-       			while((strLine = reader.readLine()) != null) {
-       				listOfStrings.add(strLine);
-       			}
-       			
-        		listOfStrings.add(null);
-        		
+
+	
        			if (firstTime == true) {			//First post is shown here
        				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");  
        				postID = listOfStrings.get(i - 2);
@@ -37,10 +37,8 @@ public class Feed {
         		
        			System.out.println("1. Next post \n" + "2. Previous post \n"
        					+ "3. Like \n" + "4. See number of likes \n" + "5. Go back \n");
-       			
-        		Scanner in = new Scanner(System.in);
                
-        		int option = in.nextInt(); 
+        		int option = Interface.input.nextInt(); 
 				int numOfLikes;
        			flag = true;
        			
