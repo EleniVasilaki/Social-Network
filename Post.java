@@ -84,13 +84,12 @@ public class Post {
 			boolean flag = false;
             int i = 0;
             while((line = reader.readLine()) != null) {
-            while((line = reader.readLine()) != null) {
        	        editArrayList.add(line);
        	    }
 			reader.close();
 
             do{
-				System.out.println(userId + " " + editArrayList.get(i));
+
                 if(userId.equals(editArrayList.get(i)) && postId.equals(editArrayList.get(i+1))){
 					flag = true;
                     System.out.println("1: Edit description \n" + "2: Edit link \n");
@@ -101,36 +100,51 @@ public class Post {
                         System.out.println("Please enter new description for your post");
                         String des = Interface.input.next();
                         editArrayList.set(i+2, des);
-                    } else if(option==2){
-                        System.out.println("Please enter new link for your post");
-                        String link = scanner.next();
+						try {
+							File oldfile = new File(".\\post.txt");
+							File newfile = new File("newpost.txt");
+							BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
+					
+							for(String str: editArrayList) {
+								writer.write(str + System.lineSeparator());
+							   }
+							writer.close();
+							oldfile.delete();
+							File dump = new File(".\\post.txt");
+							newfile.renameTo(dump);
+							System.out.println("New file created");
+						} catch (IOException e) {
+							System.out.println("An error occurred.");
+							e.printStackTrace();
+						}
 						Interface.mainMenu();
                     } else if(option == 2){
                         System.out.println("Please enter new link for your post");
                         String link = Interface.input.next();
                         editArrayList.set(i+3, link);
+						try {
+							File oldfile = new File(".\\post.txt");
+							File newfile = new File("newpost.txt");
+							BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
+					
+							for(String str: editArrayList) {
+								writer.write(str + System.lineSeparator());
+							}
+							writer.close();
+							oldfile.delete();
+							File dump = new File(".\\post.txt");
+							newfile.renameTo(dump);
+							System.out.println("New file created");
+						} catch (IOException e) {
+							System.out.println("An error occurred.");
+							e.printStackTrace();
+						}
 						Interface.mainMenu();
                     } else {
                         System.out.println("Wrong input. Please enter 1 or 2 \n");
 						throw new IOException();
                     }
-					try {
-                    	File oldfile = new File(".\\post.txt");
-                    	File newfile = new File("newpost.txt");
-        	            BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
-                
-                    	for(String str: editArrayList) {
-                        	writer.write(str + System.lineSeparator());
-                   		}
-                    	writer.close();
-                    	oldfile.delete();
-                    	File dump = new File(".\\post.txt");
-                    	newfile.renameTo(dump);
-                    	//System.out.println("New file created");
-                    } catch (IOException e) {
-                    	System.out.println("An error occurred.");
-                    	e.printStackTrace();
-                	}
+
 				}
                 i = i + 4;
             } while(editArrayList.get(i+4) != null || flag == true/*&& editArrayList.get(i) == userId && editArrayList.get(i+1) == postId */);
@@ -242,9 +256,9 @@ public class Post {
 					System.out.println("1. Edit post \n" + "2. Delete post \n" + "3. Next Post \n" + "4. Go back to profile \n");
 					int answer = Interface.input.nextInt();
 					if (answer == 1) {
-						editPostMethod(userId, listOfStrings.get(i + 1));
+						editPostMethod(userId, listOfStrings.get(i - 3));					
 					} else if (answer == 2) {
-						deletePostMethod(userId, listOfStrings.get(i + 1));
+						deletePostMethod(userId, listOfStrings.get(i - 3));
 					} else if (answer == 3) {
 
 						while(listOfStrings.get(i) != null && flag == false) {
