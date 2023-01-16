@@ -81,7 +81,7 @@ public class Post {
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
 		    String line;
             int i = 0;
-            while(line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null) {
        	        editArrayList.add(line);
        	    }
 			reader.close();
@@ -92,18 +92,18 @@ public class Post {
                     int option = scanner.nextInt();
 
                     if(option==1){
-                        System.out.println("Please enter new description for your post")
+                        System.out.println("Please enter new description for your post");
                         String des = scanner.next();
                         editArrayList.set(i+2, des);
                     } else if(option==2){
-                        System.out.println("Please enter new link for your post")
+                        System.out.println("Please enter new link for your post");
                         String link = scanner.next();
                         editArrayList.set(i+3, link);
                     } else {
                         System.out.println("Wrong input. Please enter 1 or 2 \n");
                     }
                     try {
-                        File oldfile = new File(".\\post.txt")
+                        File oldfile = new File(".\\post.txt");
                         File newfile = new File("newpost.txt");
                         BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
                     
@@ -124,7 +124,7 @@ public class Post {
                
                 }
                  i = i + 4;
-            } while(editArrayList.get(i+4) != null && editArrayList.get(i)==userId && editArrayList.get(i+1)==postId)
+            } while(editArrayList.get(i+4) != null && editArrayList.get(i)==userId && editArrayList.get(i+1)==postId);
 
         } catch (IOException e) {
             System.out.println("An error has occurred.");
@@ -246,7 +246,7 @@ public class Post {
 				int answer = scanner.nextInt();
 
 				if (answer == 1) {
-					EditPostMethod(userId, postid);
+					editPostMethod(userId, postid);
 				} else if (answer == 2) {
 					deletePostMethod(userId, postid);
 				} else if (answer == 3) {
