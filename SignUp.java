@@ -20,7 +20,7 @@ public class SignUp {
 		int id = 1;
 		username = Interface.input.nextLine();
 
-		/*try {
+		try {
 
 			do
 			{
@@ -65,7 +65,7 @@ public class SignUp {
 
 		} catch (Exception e) {
 			System.err.println("An error has occurred");
-		} /* */
+		} 
 
 		String userid = String.valueOf(id);
 		Profile.createProfile(userid);

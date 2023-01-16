@@ -52,7 +52,7 @@ public class Feed {
        				if (listOfStrings.get(i + 1) == null) {       					
        					System.out.println("You have reached the end of the feed \n" + "Sending you back to the start of the feed \n");
        					firstTime = true;
-       					throw new NullPointerException();       					
+       					feedMethod(userID);       					
        				} 
        				
        			} else if (option == 2) {			//Previous Post Code
@@ -86,6 +86,7 @@ public class Feed {
         	reader.close();
         	
     	} catch (Exception e) {
+			System.out.println("Please enter 1, 2, 3, 4 or 5 \n"); 
         	feedMethod(userID);
     	}
     } 

@@ -4,7 +4,7 @@
 4,jay,son,water,27,01,2003,Phd
 5,Jayson,N,Earth,23,4,1111,Phd
 6,iason,ner,nothing,yet,2,3,Phd
-7,anonymous,person,Aquatic,life,5,2003,Bsc
+7,jayson,ner,water,27,4,2001,High School
 8,dads,aasds,asd,1,32,21,Bsc
 1,sd,aasd,adsas,ads,2,3,Phd
 1,das,asd,asd,2,3,4,Bsc

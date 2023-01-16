@@ -209,7 +209,7 @@ public class Profile{
 			    System.out.println("2.Bsc");
 				System.out.println("3.Msc");
 				System.out.println("4.Phd");
-				answ = s2.nextInt();
+				answ = Interface.input.nextInt();
 				switch(answ) {
 					case 1:
 					newValue = "High School";
@@ -252,7 +252,9 @@ public class Profile{
 			FileWriter writer = new FileWriter("ProfileData.txt");
 			writer.append(fileContents);
 			writer.flush();
+			writer.close();
 			System.out.println("You have successfully changed your Bio");
+			Interface.profileMenu();
 		} catch(IOException e) {
 			System.out.println("An error has occurred");
 		}

@@ -36,6 +36,7 @@ public class Interface {
 
     public static void mainMenu() throws IOException {
         int option;
+        Post post = new Post();
         do {
             System.out.println("""
                     1. Profile
@@ -44,7 +45,7 @@ public class Interface {
                     4. Log out
                     """);
 
-            option = Interface.input.nextInt();
+           option = Interface.input.nextInt();
 
             switch (option) {
                 case 1:
@@ -54,7 +55,7 @@ public class Interface {
                     Feed.feedMethod(uid);
                     break;
                 case 3:
-                    Post.createPostMethod(uid);
+                    post.createPostMethod(uid);
                     break;
                 case 4:
                     logOut();
