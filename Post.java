@@ -15,8 +15,8 @@ import java.io.File;
 
 public class Post {
     //Create Post Method	
-	public static void createPostMethod(String userID) {
-        Scanner in = new Scanner(System.in);
+	public void createPostMethod(String userID) {
+
         Random rand = new Random();
         StringBuilder buffer = new StringBuilder(10);
         for (int i = 0; i < 10; i++) {
@@ -26,7 +26,7 @@ public class Post {
         String postID = buffer.toString();
         //The code above generates PostID
         System.out.println("1. Add description" + "\n" + "2. Add text/link");
-        int option = in.nextInt();
+        int option = Interface.input.nextInt();
         try {
 			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
 			BufferedReader reader = new BufferedReader(new FileReader(".\\post.txt"));
@@ -37,27 +37,29 @@ public class Post {
 			}
 			postId = postId / 3; //Otherwise postId goes up by 3 not by 1 */
 			//The hidden code above is for adding increasing numbers as an extra line of each post
-			in.nextLine();
+			Interface.input.nextLine();
 			if (option == 1) {
+
 				writer.write(userID + "\n");
 				writer.write(postID + "\n");
 			    System.out.println("Please enter your description:");
-			    String description = in.nextLine();
+			    String description = Interface.input.nextLine();
 			    writer.write(description + "\n");
 				System.out.println("Please insert link:");
-			    String userPost = in.nextLine();
+			    String userPost = Interface.input.nextLine();
 				writer.write(userPost + "\n");
 				writer.close();
-				in.close();
+
 			} else if (option == 2) {
+
 				writer.write(userID + "\n");
 				writer.write(postID + "\n");
 				writer.write("\n");
 				System.out.println("Please insert link:");
-			    String userPost = in.nextLine();
+			    String userPost = Interface.input.nextLine();
 				writer.write(userPost + "\n");
-				writer.close();
-				in.close();			
+				writer.close();	
+					
 			} else {
 				System.out.println("Please enter 1 or 2");
 			}
@@ -65,6 +67,11 @@ public class Post {
 			//e.printStackTrace();
 			System.out.println("Please enter 1 or 2");
 		}
+		try {
+			Interface.mainMenu();
+		} catch (IOException e) {
+			System.out.println("error on mainMenu");
+		}	
     }
     //Edit Method
 	

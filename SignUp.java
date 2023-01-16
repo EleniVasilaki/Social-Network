@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class SignUp {
 
-	public static String signUp() {
+	public String signUp() {
 
 		String path = "users.txt";
 
@@ -18,12 +18,12 @@ public class SignUp {
 		String username ="";
 		String line;
 		int id = 1;
+		username = Interface.input.nextLine();
 
 		try {
+
 			do
 			{
-				Scanner input = new Scanner(System.in);
-				username = input.next();
 				id = 1;
 				FileReader fr = new FileReader("users.txt");
 				BufferedReader br = new BufferedReader(fr);
@@ -41,7 +41,9 @@ public class SignUp {
 						x = true;
 					}
 				}
+				br.close();
 			} while (x == false);
+			
 		}catch (FileNotFoundException e) {
 			System.err.println("Unable to open file " + path);
 		} catch (Exception e) {
@@ -49,8 +51,7 @@ public class SignUp {
 		}
 
 		System.out.println("Please enter a password");
-		Scanner in = new Scanner (System.in);
-	    	String password = in.next();
+	    String password = input.next();
 
 		try {
 			File file = new File(path);
@@ -64,7 +65,7 @@ public class SignUp {
 
 		} catch (Exception e) {
 			System.err.println("An error has occurred");
-		}
+		} 
 
 		String userid = String.valueOf(id);
 		Profile.createProfile(userid);
