@@ -84,6 +84,7 @@ public class Post {
 			boolean flag = false;
             int i = 0;
             while((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null) {
        	        editArrayList.add(line);
        	    }
 			reader.close();
@@ -100,6 +101,9 @@ public class Post {
                         System.out.println("Please enter new description for your post");
                         String des = Interface.input.next();
                         editArrayList.set(i+2, des);
+                    } else if(option==2){
+                        System.out.println("Please enter new link for your post");
+                        String link = scanner.next();
 						Interface.mainMenu();
                     } else if(option == 2){
                         System.out.println("Please enter new link for your post");

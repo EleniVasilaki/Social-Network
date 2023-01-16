@@ -2,9 +2,12 @@ import java.io.*;
 import java.util.*;
 
 public class Interaction {
+
+    static String fileName = "interactions.txt"; // The file that the interactions data is saved.
+
     public static void checkInteractions(String uid, String pid) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             boolean found = false;
             // Checks if any interaction by any user has ever happened in any post.
@@ -18,20 +21,22 @@ public class Interaction {
             br.close();
             // If it hasn't, it sets the interactions to false.
             if (!found) {
-                BufferedWriter bw = new BufferedWriter(new FileWriter("interactions.txt", true));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true));
                 bw.write(uid + "," + pid + ",false," + "" + ",false,false");
                 bw.newLine();
                 bw.close();
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
         }
     }
 
     public static void like(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             StringBuilder fileContent = new StringBuilder();
             boolean found = false;
@@ -47,21 +52,23 @@ public class Interaction {
             }
             br.close();
             if (found) {
-                FileWriter fw = new FileWriter("interactions.txt");
+                FileWriter fw = new FileWriter(fileName);
                 fw.write(fileContent.toString());
                 fw.close();
             } else {
                 System.out.println("You have already liked this post.");
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
         }
     }
 
     // Counts how many times a post (pid) has been liked.
     public static int likes(String pid) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
@@ -72,8 +79,11 @@ public class Interaction {
             }
             br.close();
             return count;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+            return 0;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
             return 0;
         }
     }
@@ -81,7 +91,7 @@ public class Interaction {
     public static void comment(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             StringBuilder fileContent = new StringBuilder();
             boolean found = false;
@@ -101,21 +111,23 @@ public class Interaction {
             }
             br.close();
             if (found) {
-                FileWriter fw = new FileWriter("interactions.txt");
+                FileWriter fw = new FileWriter(fileName);
                 fw.write(fileContent.toString());
                 fw.close();
             } else {
                 System.out.println("New comment added!");
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
         }
     }
 
     // Counts how many comments a post (pid) has got.
     public static int comments(String pid) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
@@ -126,16 +138,33 @@ public class Interaction {
             }
             br.close();
             return count;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
             return 0;
+        } catch (IOException e) {
+            System.out.println("An error may have occurred: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public static void seeComments(String pid) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] comments = line.split(",");
+                if (comments[1].equals(pid) && !comments[3].equals("")) {
+                    System.out.println(comments[3]);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public static void sharePost(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             StringBuilder fileContent = new StringBuilder();
             boolean found = false;
@@ -151,20 +180,22 @@ public class Interaction {
             }
             br.close();
             if (found) {
-                FileWriter fw = new FileWriter("interactions.txt");
+                FileWriter fw = new FileWriter(fileName);
                 fw.write(fileContent.toString());
                 fw.close();
             } else {
                 System.out.println("Post already shared");
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
         }
     }
 
     public static int shares(String pid) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
@@ -175,8 +206,11 @@ public class Interaction {
             }
             br.close();
             return count;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+            return 0;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
             return 0;
         }
     }
@@ -184,7 +218,7 @@ public class Interaction {
     public static void report(String uid, String pid) {
         checkInteractions(uid, pid);
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             StringBuilder fileContent = new StringBuilder();
             boolean found = false;
@@ -200,20 +234,22 @@ public class Interaction {
             }
             br.close();
             if (found) {
-                FileWriter fw = new FileWriter("interactions.txt");
+                FileWriter fw = new FileWriter(fileName);
                 fw.write(fileContent.toString());
                 fw.close();
             } else {
                 System.out.println("Post already reported!");
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("An error may have occurred: " + e.getMessage());
         }
     }
 
     public static int reports(String pid) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("interactions.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
@@ -224,9 +260,18 @@ public class Interaction {
             }
             br.close();
             return count;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
             return 0;
+        } catch (IOException e) {
+            System.out.println("An error may have occurred: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public static void deleteByReports(String uid, String pid) {
+        if (reports(pid) >= 10) {
+            Post.deletePostMethod(pid, uid);
         }
     }
 }
