@@ -192,13 +192,13 @@ public class Profile{
 		viewProfile(userId);
 		String[] data = new String[8];
 		data = getProfile(userId);
-	    System.out.println('\n' + "1. change first name");
-	    System.out.println("2. change last name");
-		System.out.println("3. change field of interest");
-	    System.out.println("4. change day of birth");
-		System.out.println("5. change month of birth");
-		System.out.println("6. change year of birth");
-		System.out.println("7. change level of education");
+	    System.out.println('\n' + "1. Change first name");
+	    System.out.println("2. Change last name");
+		System.out.println("3. Change field of interest");
+	    System.out.println("4. Change day of birth");
+		System.out.println("5. Change month of birth");
+		System.out.println("6. Change year of birth");
+		System.out.println("7. Change level of education");
 	    Scanner s2 = new Scanner(System.in);
 		int ans = s2.nextInt();
 		System.out.println("Enter the new value:");
@@ -226,7 +226,7 @@ public class Profile{
 					newValue = "Phd";
 					break;
 					default:
-					System.out.println("Wrong input. Try again");
+					System.out.println("Wrong input. Please try again");
 				}
 			} while(answ != 1 && answ != 2 && answ != 3 && answ != 4);
 		} else {
@@ -257,7 +257,7 @@ public class Profile{
 			writer.flush();
 			System.out.println("You have successfully changed your Bio");
 		} catch(IOException e) {
-			System.out.println("An error has occured");
+			System.out.println("An error has occurred");
 		}
 	}
 
@@ -281,7 +281,7 @@ public class Profile{
 			}
 			if(found) {
 				System.out.println("My username: " + data[1]);
-	            System.out.println("Enter new username");
+	            System.out.println("Please enter new username");
 	            Scanner sc = new Scanner(System.in);
                 newUN = sc.next();
                 sc.close();
@@ -329,15 +329,15 @@ public class Profile{
 				}
 				if(found) {
 					Scanner sc = new Scanner(System.in);
-					System.out.println("Enter current password:");
+					System.out.println("Please enter current password:");
 					currPW = sc.next();
 					if(currPW.equals(data[2])) {
-						System.out.println("Enter new password:");
+						System.out.println("Please enter new password:");
 		                newPW = sc.next();
 		                pwans = true;
 					} else {
 						System.out.println("Wrong password");
-						System.out.println("You can't change te password");
+						System.out.println("You can't change the password");
 						newPW = data[2];
 					}
 	                sc.close();
