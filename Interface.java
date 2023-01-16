@@ -21,7 +21,7 @@ public class Interface {
         int option;
         do {
             System.out.println("""
-                    1. Register
+                    1. Signup
                     2. Login
                     """);
 

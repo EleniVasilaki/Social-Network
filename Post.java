@@ -67,71 +67,65 @@ public class Post {
 		}
     }
     //Edit Method
-
-    public static void EditPostMethod(String name, String description, String link) {
-		Scanner in = new Scanner(System.in);
-		boolean flag = false;
-		//the user is shown the text
-		try {
-			FileReader file = new FileReader(name);
-			BufferedReader reader = new BufferedReader(file);
-			String line;
-			while (( line = reader.readLine()) != null) {
-				System.out.println(line);
-			}
+	
+    public void editPostMethod(String userId, String postId){
+	    try{
+            ArrayList<String> editArrayList = new ArrayList<String>();
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+		    String line;
+            int i = 0;
+            while(line = reader.readLine()) != null) {
+       	        editArrayList.add(line);
+       	    }
 			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//the user chooses to edit the description or the link
-		while (flag == false) {
-			String msg2 = "click 1 to edit the description, or click 2 to edit the link";
-			System.out.println(msg2);
-			int option = in.nextInt();
+            do{
+                if(userId==editArrayList.get(i) && postId==editArrayList.get(i+1)){
+                    System.out.println("1: Edit description \n" + "2: Edit link \n");
+                    Scanner scanner = new Scanner(System.in);
+                    int option = scanner.nextInt();
 
-			try{
-				FileWriter fr = new FileWriter(name);
-				BufferedWriter writer = new BufferedWriter(fr);
-				if (option == 1) {
-					//edits the description
-					in.nextLine();
-					description = in.nextLine();
-					writer.write(description);
-				} else if (option == 2) {
-					//edits the link
-					in.nextLine();
-					link = in.nextLine();
-					writer.write(link);
-				}
-				writer.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			//the user is shown the texts after the changes are made
-			try {
-				FileReader file = new FileReader(name);
-				BufferedReader reader = new BufferedReader(file);
-				String line;
-				while ((line = reader.readLine()) != null) {
-					System.out.println(line);
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//the user chooses to exit or to continue editing
-			System.out.println("Press 1 to continue editing and 2 to save and exit");
-			int ans = in.nextInt();
-			if (ans == 2 ) {
-				flag = true;
-			} else {
-				System.out.println(msg2);
-			}
-			in.close();
-		}
-	}
+                    if(option==1){
+                        System.out.println("Please enter new description for your post")
+                        String des = scanner.next();
+                        editArrayList.set(i+2, des);
+                    } else if(option==2){
+                        System.out.println("Please enter new link for your post")
+                        String link = scanner.next();
+                        editArrayList.set(i+3, link);
+                    } else {
+                        System.out.println("Wrong input. Please enter 1 or 2 \n");
+                    }
+                    try {
+                        File oldfile = new File(".\\post.txt")
+                        File newfile = new File("newpost.txt");
+                        BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
+                    
+                        for(String str: editArrayList) {
+                            writer.write(str + System.lineSeparator());
+                        }
 
-    //Delete Method
+                        writer.close();
+                        oldfile.delete();
+                        File dump = new File(".\\post.txt");
+                        newfile.renameTo(dump);
+                        //System.out.println("New file created");
+
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+               
+                }
+                 i = i + 4;
+            } while(editArrayList.get(i+4) != null && editArrayList.get(i)==userId && editArrayList.get(i+1)==postId)
+
+        } catch (IOException e) {
+            System.out.println("An error has occurred.");
+            e.printStackTrace();
+        }
+    }
+	
+	//Delete Method
     public static void deletePostMethod(String postId, String userId) {
         //creating a temporary file to make changes in
 		String filepath = ".\\post.txt";
@@ -193,7 +187,8 @@ public class Post {
             newFile.renameTo(dump);
             //System.out.println("New file created");
         }  catch(Exception e){
-            System.out.println(e);
+            System.out.println("An error has occurred.");
+
         }
     }
 
@@ -270,7 +265,7 @@ public class Post {
 			} while (postArrayList.get(i + 4) != null && flag == true);
 			reader.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("An error has occurred.");
 		}
 	}
 }
