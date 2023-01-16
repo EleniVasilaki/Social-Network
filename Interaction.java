@@ -254,4 +254,10 @@ public class Interaction {
             return 0;
         }
     }
+
+    public static void deleteByReports(String uid, String pid) {
+        if (reports(pid) >= 10) {
+            Post.deletePostMethod(pid, uid);
+        }
+    }
 }
