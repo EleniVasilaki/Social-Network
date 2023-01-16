@@ -3,33 +3,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interface {
-    public static String uid;
 
-    public static int selection() {
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            try {
-                return input.nextInt();
-            } catch (InputMismatchException e) {
-                input.nextLine();
-                System.out.println("Error: Please enter a valid integer.");
-            }
-        }
-    }
+    public static String uid;
+    static Scanner input = new Scanner(System.in);
 
     public static void welcomeMenu() throws IOException {
         int option;
+        SignUp su = new SignUp();
+
         do {
             System.out.println("""
                     1. Register
                     2. Login
                     """);
 
-            option = selection();
+            option = Interface.input.nextInt();
 
             switch (option) {
                 case 1:
-                    uid = SignUp.signUp();
+                    uid = su.signUp();
                     mainMenu();
                     break;
                 case 2:
@@ -52,7 +44,7 @@ public class Interface {
                     4. Log out
                     """);
 
-            option = selection();
+            option = Interface.input.nextInt();
 
             switch (option) {
                 case 1:
@@ -83,7 +75,7 @@ public class Interface {
                     1.3 Back
                     """);
 
-            option = selection();
+            option = Interface.input.nextInt();
 
             switch (option) {
                 case 1:
@@ -105,4 +97,5 @@ public class Interface {
         System.out.println("You have been logged out!");
         welcomeMenu();
     }
+
 }
