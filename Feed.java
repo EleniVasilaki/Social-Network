@@ -32,9 +32,10 @@ public class Feed {
         		}
         		
        			System.out.println("1. Next post \n" + "2. Previous post \n"
-       					+ "3. Like \n" + "4. See number of likes \n" + "5. Report\n" + "6. See number of reports\n" + "8. Add comment\n" 
-						+ "9. See number of comments\n" + "10. See comments\n" + "11. Go back \n");
-               
+       					+ "3. Like \n" + "4. See number of likes \n" + "5. Report\n" + "6. See number of reports\n" + "7. Add comment\n" 
+						+ "8. See number of comments\n" + "9. See comments\n" + "10. Go back \n");
+						
+				Interface.input.nextLine();
         		int option = Interface.input.nextInt(); 
 				int numOfLikes;
 				int report;
@@ -76,13 +77,14 @@ public class Feed {
 								System.out.println("Number of comments: " + comm);
 
 							} else if (option == 7) {   // Print of comments Code
+								System.out.println("List of comments:");
 								Interaction.seeComments(postID);
 
 							} else if (option != 8){
 								System.out.println("Please enter one of the options");
 							}
 							
-						} while( option != 8);
+						} while (option != 8);
 						Interface.mainMenu(); 
 					}
        				
@@ -111,24 +113,21 @@ public class Feed {
 					report = Interaction.reports(postID);
 					System.out.println("Number of reports: " + report);
 
-				} else if (option == 7) {   
-					Interface.mainMenu();    	// Go Back Code			
-       				flag = false; 
-       				
-        		} else if (option == 8) {      // Add comment Code
+        		} else if (option == 7) {      // Add comment Code
 					Interaction.comment(userID, postID);
 
-				} else if (option == 9) {     // Count of comments Code
+				} else if (option == 8) {     // Count of comments Code
 					comm = Interaction.comments(postID);
 					System.out.println("Number of comments: " + comm);
 
-				} else if (option == 10) {   // Print of comments Code
+				} else if (option == 9) {   // Print of comments Code
+					System.out.println("List of comments:");
 					Interaction.seeComments(postID);
 
-				} else if (option == 11) {   // Go back Code
-					Interface.mainMenu();  
-					flag = true;  						
-        			     			
+				} else if (option == 10) {   
+					Interface.mainMenu();    	// Go Back Code			
+       				flag = false; 
+       				 						
         		} else { //Wrong Input Code
 					System.out.println("Please enter one of the options\n");  
 				}
