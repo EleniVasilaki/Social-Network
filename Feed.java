@@ -32,11 +32,13 @@ public class Feed {
         		}
         		
        			System.out.println("1. Next post \n" + "2. Previous post \n"
-       					+ "3. Like \n" + "4. See number of likes \n" + "5. Report\n" + "6. See Reports\n" + "7. Go back \n");
+       					+ "3. Like \n" + "4. See number of likes \n" + "5. Report\n" + "6. See number of reports\n" + "8. Add comment\n" 
+						+ "9. See number of comments\n" + "10. See comments\n" + "11. Go back \n");
                
         		int option = Interface.input.nextInt(); 
 				int numOfLikes;
 				int report;
+				int comm;
        			flag = true;
        			
        			if (option == 1) {       		//Next Post Code		
@@ -48,7 +50,8 @@ public class Feed {
 						System.out.println("You have reached the end of the feed \n");
 
 						do {  					
-      	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Report\n" + "4. See reports\n" + "5. Go back\n"); 
+      	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Report\n" + "4. See reports\n" + 
+							"5. Add comment\n" + "6. See number of comments\n" + "7. See comments\n" + "8. Go back\n"); 
 							option = Interface.input.nextInt();	
 							if (option == 1) {     		//Like Code		
 
@@ -64,10 +67,22 @@ public class Feed {
 							} else if (option == 4) {			//Count of Reports Code
 								report = Interaction.reports(postID);
 								System.out.println("Number of reports: " + report);
-							} else if (option != 5){
-								System.out.println("Please enter 1, 2, 3, 4 or 5");
+
+							} else if (option == 5) {      // Add comment Code
+								Interaction.comment(userID, postID);
+
+							} else if (option == 6) {     // Count of comments Code
+								comm = Interaction.comments(postID);
+								System.out.println("Number of comments: " + comm);
+
+							} else if (option == 7) {   // Print of comments Code
+								Interaction.seeComments(postID);
+
+							} else if (option != 8){
+								System.out.println("Please enter one of the options");
 							}
-						} while( option != 5);
+							
+						} while( option != 8);
 						Interface.mainMenu(); 
 					}
        				
@@ -87,7 +102,7 @@ public class Feed {
 						
        			} else if (option == 4) {			//Count of Likes Code
 					numOfLikes = Interaction.likes(postID); 
-       				System.out.println("Number of likes :" + numOfLikes + "\n");
+       				System.out.println("Number of likes: " + numOfLikes + "\n");
 
 				} else if (option == 5) {        //Report Code
 					Interaction.report(userID, postID);
@@ -100,9 +115,23 @@ public class Feed {
 					Interface.mainMenu();    	// Go Back Code			
        				flag = false; 
        				
-        		} else {       						//Wrong Input Code
-        			System.out.println("Please enter 1, 2, 3, 4, 5, 6 or 7\n");       			
-        		}
+        		} else if (option == 8) {      // Add comment Code
+					Interaction.comment(userID, postID);
+
+				} else if (option == 9) {     // Count of comments Code
+					comm = Interaction.comments(postID);
+					System.out.println("Number of comments: " + comm);
+
+				} else if (option == 10) {   // Print of comments Code
+					Interaction.seeComments(postID);
+
+				} else if (option == 11) {   // Go back Code
+					Interface.mainMenu();  
+					flag = true;  						
+        			     			
+        		} else { //Wrong Input Code
+					System.out.println("Please enter one of the options\n");  
+				}
 
         	} while (listOfStrings.get(i + 1) != null && flag == true);
         	reader.close();
