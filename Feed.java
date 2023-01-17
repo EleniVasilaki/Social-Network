@@ -10,8 +10,6 @@ public class Feed {
    	
     public static void feedMethod (String userID) {	
 
-		Interface interf = new Interface();
-
     	try {
     		
         	boolean flag = false;
@@ -25,7 +23,6 @@ public class Feed {
 			}
 			
 		 	listOfStrings.add(null);
-	
         	
         	do {       
 
@@ -48,11 +45,25 @@ public class Feed {
        				postID = listOfStrings.get(i - 2);
        				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");
        				
-       				if (listOfStrings.get(i + 1) == null) {       					
-       					System.out.println("You have reached the end of the feed \n" + "Sending you back to the start of the feed \n");
-       					firstTime = true;
-       					feedMethod(userID);       					
-       				} 
+       				if (listOfStrings.get(i + 1) == null) { 
+						System.out.println("You have reached the end of the feed \n") 
+						do {  					
+      	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Go back \n"); 
+							option = Interface.input.nextInt();	
+							if (option == 1) {     		//Like Code		
+								System.out.println(postID);
+							 Interaction.like(userID, postID); 
+							 System.out.println("You liked the post \n");
+								
+							} else if (option == 2) {			//Count of Likes Code
+								numOfLikes = Interaction.likes(postID); 
+								System.out.println("Number of likes :" + numOfLikes + "\n");
+							} else {
+								System.out.println("Please enter 1, 2, or 3");
+							}
+						} while( option != 3);
+						Interface.mainMenu(); 
+					}
        				
        			} else if (option == 2) {			//Previous Post Code
        				i -= 4;
@@ -74,7 +85,7 @@ public class Feed {
        				System.out.println("Number of likes :" + numOfLikes + "\n");
        				
        			} else if (option == 5) {   
-					interf.mainMenu();    	// Go Back Code			
+					Interface.mainMenu();    	// Go Back Code			
        				flag = false; 
        				
         		} else {       						//Wrong Input Code
@@ -83,6 +94,7 @@ public class Feed {
 
         	} while (listOfStrings.get(i + 1) != null && flag == true);
         	reader.close();
+
         	
     	} catch (Exception e) {
 			System.out.println("Please enter 1, 2, 3, 4 or 5 \n"); 
