@@ -97,7 +97,8 @@ public class Post {
 
                     if(option == 1){
                         System.out.println("Please enter new description for your post");
-                        String des = Interface.input.next();
+						Interface.input.nextLine();
+                        String des = Interface.input.nextLine();
                         editArrayList.set(i+2, des);
 						try {
 							File oldfile = new File(".\\post.txt");

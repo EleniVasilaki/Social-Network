@@ -14,3 +14,6 @@
 1,jay,ner,zombies,12,4,2003,Msc
 10,jay,hend,rocks,12,3,2002,Bsc
 11,Jenny,Moschopoulou,dogs,01/2003,01,2003,Bsc
+12,George,Hamilton,Aquatic,animals,27,4,Msc
+13,andrew,lamar,rocks,23,4,2001,Bsc
+18,jay,ner,the rock,21,3,2001,High School

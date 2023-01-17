@@ -36,7 +36,7 @@ public class SignUp {
 					if (username.equals(column[1])) {
 						System.out.println("Someone else is already using this username. Please enter a new one.");
 						x = false;
-						break;
+						signUp();
 					} else {
 						x = true;
 					}
