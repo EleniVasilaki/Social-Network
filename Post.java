@@ -76,17 +76,20 @@ public class Post {
     //Edit Method
 	
     public void editPostMethod(String userId, String postId){
-		
+		System.out.println("1");
 	    try{
             ArrayList<String> editArrayList = new ArrayList<String>();
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
-		    String line;
+		    System.out.println("2");
+			String line;
 			boolean flag = false;
             int i = 0;
             while((line = reader.readLine()) != null) {
        	        editArrayList.add(line);
        	    }
+			System.out.println("3");
 			reader.close();
+			System.out.println("4");
 
             do{
 
@@ -256,6 +259,7 @@ public class Post {
 					System.out.println("1. Edit post \n" + "2. Delete post \n" + "3. Next Post \n" + "4. Go back to profile \n");
 					int answer = Interface.input.nextInt();
 					if (answer == 1) {
+						System.out.println("post1");
 						editPostMethod(userId, listOfStrings.get(i - 3));					
 					} else if (answer == 2) {
 						deletePostMethod(userId, listOfStrings.get(i - 3));
