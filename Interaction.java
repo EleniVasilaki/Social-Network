@@ -156,68 +156,15 @@ public class Interaction {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] comments = line.split(",");
-                if (comments[1].equals(pid) && !comments[3].equals("")) {
-                    System.out.println(comments[3]);
+                String[] values = line.split(",");
+                if (values[1].equals(pid) && !values[3].equals("")) {
+                    System.out.println(values[3]);
+                } else {
+                    System.out.println("There are no comments");
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public static void sharePost(String uid, String pid) {
-        checkFile();
-        checkInteractions(uid, pid);
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            String line;
-            StringBuilder fileContent = new StringBuilder();
-            boolean found = false;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values[0].equals(uid) && values[1].equals(pid) && values[4].equals("false")) {
-                    found = true;
-                    line = uid + "," + pid + "," + values[2] + "," + values[3] + ",true," + values[5];
-                    System.out.println("You shared the post #" + pid);
-                }
-                fileContent.append(line);
-                fileContent.append(System.lineSeparator());
-            }
-            br.close();
-            if (found) {
-                FileWriter fw = new FileWriter(fileName);
-                fw.write(fileContent.toString());
-                fw.close();
-            } else {
-                System.out.println("Post already shared");
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("An error may have occurred: " + e.getMessage());
-        }
-    }
-
-    public static int shares(String pid) {
-        int count = 0;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values[1].equals(pid) && values[4].equals("true")) {
-                    count++;
-                }
-            }
-            br.close();
-            return count;
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-            return 0;
-        } catch (IOException e) {
-            System.out.println("An error may have occurred: " + e.getMessage());
-            return 0;
         }
     }
 
