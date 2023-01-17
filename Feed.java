@@ -25,6 +25,7 @@ public class Feed {
 			}
 			
 		 	listOfStrings.add(null);
+	
         	
         	do {       
 
