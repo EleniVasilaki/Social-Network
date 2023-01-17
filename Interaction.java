@@ -2,8 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Interaction {
-
-    static String fileName = "interactions.txt"; // The file that the interactions data is saved.
+    static File fileName = new File("interactions.txt"); // The file that the interactions data is saved.
 
     public static void checkInteractions(String uid, String pid) {
         try {
