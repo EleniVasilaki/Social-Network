@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interface {
@@ -73,9 +72,9 @@ public class Interface {
             Profile.viewProfile(uid);
             
             System.out.println("""
-                    1.1 Edit profile
-                    1.2 My posts
-                    1.3 Back
+                    1. Edit profile
+                    2. My posts
+                    3. Back
                     """);
 
             option = Interface.input.nextInt();

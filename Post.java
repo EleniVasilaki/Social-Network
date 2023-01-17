@@ -4,11 +4,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.io.LineNumberReader;
-import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.io.File;
@@ -28,15 +25,9 @@ public class Post {
         System.out.println("1. Add description" + "\n" + "2. Add text/link");
         int option = Interface.input.nextInt();
         try {
+			
 			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
-			BufferedReader reader = new BufferedReader(new FileReader(".\\post.txt"));
-			/*long postId = 0;
-			String line;
-			while ((line = reader.readLine()) != null) {
-				postId = postId + 1;
-			}
-			postId = postId / 3; //Otherwise postId goes up by 3 not by 1 */
-			//The hidden code above is for adding increasing numbers as an extra line of each post
+
 			Interface.input.nextLine();
 			if (option == 1) {
 
@@ -212,7 +203,7 @@ public class Post {
                 } 
 
             i = i + 4;
-            } while(editArrayList.get(i+1) != null || flag == true/*&& editArrayList.get(i) == userId && editArrayList.get(i+1) == postId */);
+            } while(editArrayList.get(i+1) != null || flag == true);
 
         } catch (IOException e) {
 			editPostMethod(userId, postId);
@@ -225,7 +216,7 @@ public class Post {
 	public void myPostsMenu(String userId) {
 
 		try {
-//new
+
 			LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
         	ArrayList<String> listOfStrings = new ArrayList<String>();
 			int i = 0;
@@ -303,96 +294,3 @@ public class Post {
 		}
 	}
 }
-// new
-		/*try{
-            
-		    List<String> postArrayList = new ArrayList<String>();
-		    LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
-			// read entire line as string
-			String line = null;
-			boolean first = false; //Becomes true if user has any posts
-			boolean flag = true;
-			int i = 0;
-			String postid = null;
-			String postdes;
-			String postlink;
-
-			// Arraylist with users posts
-			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
-				System.out.println(userId);
-				if (line == userId) {
-					
-					for (int j = 0; j == 3; j++ ) {
-						postArrayList.add(line);
-						line = reader.readLine();
-						first = true; //Tests if user has any posts at all
-					}
-				} else {
-
-					for (int k = 0; k == 3; k++ ) {
-						line = reader.readLine();
-					}
-				}	
-			}
-			postArrayList.add(line); //So i can check if there are no more posts (I need the last shell to be empty)
-
-			if (first == true) {
-				do {
-					//show first post
-					if (first == true) { //First now has another use, it allows the commands below to exeute only once
-						if (userId == postArrayList.get(i)) {
-							postid = postArrayList.get(i + 1);
-							postdes = postArrayList.get(i + 2);
-							postlink = postArrayList.get(i + 3);
-	
-							System.out.println(postdes + "\n" + postlink);
-							first = false;
-						}
-					}
-					System.out.println("1. Edit post \n" + "2. Delete post \n" + "3. Next Post \n" + "4. Go back to profile \n");
-					int answer = Interface.input.nextInt();
-	
-					if (answer == 1) {
-						editPostMethod(userId, postid);
-					} else if (answer == 2) {
-						deletePostMethod(userId, postid);
-					} else if (answer == 3) {
-
-						if (postArrayList.get(i + 4) == null) {       					
-							System.out.println("You have reached the end of your posts\n" + "Sending you back to your first post \n");
-							myPostsMenu(userId);
-						} else {
-							i = i + 4;
-							postid = postArrayList.get(i + 1);
-							postdes = postArrayList.get(i + 2);
-							postlink = postArrayList.get(i + 3);
-		
-							System.out.println(postdes + "\n" + postlink);
-						}
-
-					} else if(answer==4) { //Go back
-						Interface.profileMenu();
-						flag = false;
-					} else { //wrong input
-						System.out.println("Wrong input. Please enter 1, 2, 3 or 4 \n");
-						myPostsMenu(userId);
-					}
-	
-				} while (postArrayList.get(i + 4) != null && flag == true);
-				reader.close();
-
-			} else {
-				System.out.println("You have no posts");
-			}
-
-		} catch (Exception e) {
-			System.out.println("An error has occurred.");
-		}
-		try {
-			Interface.profileMenu();
-		} catch (IOException e) {
-
-		}
-	}
-} */
