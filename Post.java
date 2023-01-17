@@ -180,10 +180,11 @@ public class Post {
 					flag = true;
                     System.out.println("Deleting post with id "+postId);
 					
-                    editArrayList.set(i, " ");
-                    editArrayList.set(i+1, " ");
-					editArrayList.set(i+2, " ");
-					editArrayList.set(i+3, " ");
+                    editArrayList.remove(i);
+                    editArrayList.remove(i+1);
+					editArrayList.remove(i+2);
+					editArrayList.remove(i+3);
+					System.out.println(editArrayList.size());
 					try {
 						File oldfile = new File(".\\post.txt");
 						File newfile = new File("tempPost.txt");
