@@ -70,6 +70,8 @@ public class Interface {
         Post obj = new Post();
         int option;
         do {
+            Profile.viewProfile(uid);
+            
             System.out.println("""
                     1.1 Edit profile
                     1.2 My posts
