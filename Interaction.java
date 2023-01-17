@@ -34,17 +34,7 @@ public class Interaction {
     }
 
     public static void like(String uid, String pid) {
-        if (fileCreated == false) {
-            fileCreated = true;
-            try {
-                if (fileName.createNewFile()) {
-                    System.out.println("File created");
-                }
-            } catch (IOException e) {
-                System.out.println("Error on creating file");
-            }          
-        }
-
+        checkFile();
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -78,10 +68,11 @@ public class Interaction {
 
     // Counts how many times a post (pid) has been liked.
     public static int likes(String pid) {
+        checkFile();
+        int count = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
-            int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values[1].equals(pid) && values[2].equals("true")) {
@@ -100,6 +91,7 @@ public class Interaction {
     }
 
     public static void comment(String uid, String pid) {
+        checkFile();
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -137,6 +129,7 @@ public class Interaction {
 
     // Counts how many comments a post (pid) has got.
     public static int comments(String pid) {
+        checkFile();
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
@@ -159,6 +152,7 @@ public class Interaction {
     }
 
     public static void seeComments(String pid) {
+        checkFile();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -173,6 +167,7 @@ public class Interaction {
     }
 
     public static void sharePost(String uid, String pid) {
+        checkFile();
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -205,10 +200,10 @@ public class Interaction {
     }
 
     public static int shares(String pid) {
+        int count = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
-            int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values[1].equals(pid) && !values[4].equals("true")) {
@@ -227,6 +222,7 @@ public class Interaction {
     }
 
     public static void report(String uid, String pid) {
+        checkFile();
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -249,7 +245,7 @@ public class Interaction {
                 fw.write(fileContent.toString());
                 fw.close();
             } else {
-                System.out.println("Post already reported!");
+                System.out.println("Post #" + pid + " already reported!");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
@@ -259,10 +255,11 @@ public class Interaction {
     }
 
     public static int reports(String pid) {
+        checkFile();
+        int count = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
-            int count = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values[1].equals(pid) && !values[5].equals("true")) {
@@ -277,6 +274,19 @@ public class Interaction {
         } catch (IOException e) {
             System.out.println("An error may have occurred: " + e.getMessage());
             return 0;
+        }
+    }
+
+    public static void checkFile() {
+        if (!fileCreated) {
+            fileCreated = true;
+            try {
+                if (fileName.createNewFile()) {
+                    System.out.println("File created");
+                }
+            } catch (IOException e) {
+                System.out.println("Error on creating file");
+            }
         }
     }
 
