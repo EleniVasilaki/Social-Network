@@ -46,7 +46,7 @@ public class Feed {
        				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");
        				
        				if (listOfStrings.get(i + 1) == null) { 
-						System.out.println("You have reached the end of the feed \n") 
+						System.out.println("You have reached the end of the feed \n"); 
 						do {  					
       	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Go back \n"); 
 							option = Interface.input.nextInt();	

@@ -75,7 +75,7 @@ public class Post {
     }
     //Edit Method
 	
-    public void editPostMethod(String userId, String postId){
+    public static void editPostMethod(String userId, String postId){
 	    try{
             ArrayList<String> editArrayList = new ArrayList<String>();
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
@@ -161,7 +161,64 @@ public class Post {
     }
 	
 	//Delete Method
-    public static void deletePostMethod(String postId, String userId) {
+	public static void deletePostMethod(String userId, String postId) {
+	    try{
+            ArrayList<String> editArrayList = new ArrayList<String>();
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+			String line;
+			boolean flag = false;
+            int i = 0;
+            while((line = reader.readLine()) != null) {
+       	        editArrayList.add(line);
+       	    }
+			reader.close();
+            do{
+
+                if(userId.equals(editArrayList.get(i)) && postId.equals(editArrayList.get(i+1))){
+				
+					flag = true;
+                    System.out.println("Deleting post with id "+postId);
+					
+                    editArrayList.set(i, " ");
+                    editArrayList.set(i+1, " ");
+					editArrayList.set(i+2, " ");
+					editArrayList.set(i+3, " ");
+					try {
+						File oldfile = new File(".\\post.txt");
+						File newfile = new File("tempPost.txt");
+						BufferedWriter writer = new BufferedWriter( new FileWriter("tempPost.txt", true));
+					
+						for(String str: editArrayList) {
+							writer.write(str + System.lineSeparator());
+						}
+						writer.close();
+						if(oldfile.delete()){
+								System.out.println("File deleted");
+						} else {
+								System.out.println("file not deleted");
+						}
+
+						File dump = new File(".\\post.txt");
+						newfile.renameTo(dump);
+						System.out.println("New file created");
+						} catch (IOException e) {
+							System.out.println("An error occurred.");
+							e.printStackTrace();
+						}
+						Interface.mainMenu();
+                   
+                } 
+
+            i = i + 4;
+            } while(editArrayList.get(i+1) != null || flag == true/*&& editArrayList.get(i) == userId && editArrayList.get(i+1) == postId */);
+
+        } catch (IOException e) {
+			editPostMethod(userId, postId);
+        }
+		Post p = new Post();
+		p.myPostsMenu(userId);
+    }
+    /*public static void deletePostMethod(String postId, String userId) {
         //creating a temporary file to make changes in
 		String filepath = ".\\post.txt";
         String tempFile = "tempPost.txt";
@@ -227,7 +284,7 @@ public class Post {
         }
 		Post p = new Post();
 		p.myPostsMenu(userId);
-    }
+    }*/
 
 	//nextPost method
 	public void myPostsMenu(String userId) {
