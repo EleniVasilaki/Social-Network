@@ -137,7 +137,7 @@ public class Profile{
 				pw.append(dataToBeSaved + "\n");
 				pw.close();
 				System.out.println("You have completed your Bio");
-				
+				Interface.mainMenu();
 			} catch (IOException e1) {
 				System.out.println("An error has occurred");
 			}
