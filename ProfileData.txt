@@ -1,16 +1,4 @@
-
-2,Iasonas,Nerantzakis,Safari,investigation,20/01/2003,2003,Bsc
-3,Jason,Ner,Wildlife,27,01,2003,Phd
-4,jay,son,water,27,01,2003,Phd
-5,Jayson,N,Earth,23,4,1111,Phd
-6,iason,ner,nothing,yet,2,3,Phd
-7,jayson,ner,water,27,4,2001,High School
-8,dads,aasds,asd,1,32,21,Bsc
-1,sd,aasd,adsas,ads,2,3,Phd
-1,das,asd,asd,2,3,4,Bsc
-1,sd,asd,ad,3,3,232,Msc
-1,sd,sd,sd,sd,s,s,Msc
-1,das,dasdsa,asd,21,32,123,Bsc
-1,jay,ner,zombies,12,4,2003,Msc
-10,jay,hend,rocks,12,3,2002,Bsc
-11,Jenny,Moschopoulou,dogs,01/2003,01,2003,Bsc
+1,Jenny,Moschopoulou,Economics,28,06,1996,Phd
+2,Iasonas,Nerantzakis,Technology,13,02,1989,Phd
+3,Eleni,Vassilaki,Medicine,01,07,2000,Msc
+4,Dimitris,Kontis,Marine,Biology,15,11,Bsc
