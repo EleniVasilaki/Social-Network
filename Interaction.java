@@ -2,7 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Interaction {
-    static File fileName = new File("interactions.txt"); // The file that the interactions data is saved.
+    static File fileName = new File(".\\interactions.txt"); // The file that the interactions data is saved.
+    static boolean fileCreated = false;
 
     public static void checkInteractions(String uid, String pid) {
         try {
@@ -33,6 +34,17 @@ public class Interaction {
     }
 
     public static void like(String uid, String pid) {
+        if (fileCreated == false) {
+            fileCreated = true;
+            try {
+                if (fileName.createNewFile()) {
+                    System.out.println("File created");
+                }
+            } catch (IOException e) {
+                System.out.println("Error on creating file");
+            }          
+        }
+
         checkInteractions(uid, pid);
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
