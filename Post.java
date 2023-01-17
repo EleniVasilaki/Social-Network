@@ -25,8 +25,8 @@ public class Post {
         System.out.println("1. Add description" + "\n" + "2. Add text/link");
         int option = Interface.input.nextInt();
         try {
+			
 			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
-			BufferedReader reader = new BufferedReader(new FileReader(".\\post.txt"));
 
 			Interface.input.nextLine();
 			if (option == 1) {
