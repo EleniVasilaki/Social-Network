@@ -176,7 +176,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[0].equals(uid) && values[1].equals(pid) && values[2].equals("false")) {
+                if (values[0].equals(uid) && values[1].equals(pid) && values[4].equals("false")) {
                     found = true;
                     line = uid + "," + pid + "," + values[2] + "," + values[3] + ",true," + values[5];
                     System.out.println("You shared the post #" + pid);
@@ -231,7 +231,7 @@ public class Interaction {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[0].equals(uid) && values[1].equals(pid) && values[2].equals("false")) {
+                if (values[0].equals(uid) && values[1].equals(pid) && values[5].equals("false")) {
                     found = true;
                     line = uid + "," + pid + "," + values[2] + "," + values[3] + "," + values[4] + ",true";
                     System.out.println("Post #" + pid + " successfully reported!");
