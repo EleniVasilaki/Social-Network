@@ -206,7 +206,7 @@ public class Interaction {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[1].equals(pid) && !values[4].equals("true")) {
+                if (values[1].equals(pid) && values[4].equals("true")) {
                     count++;
                 }
             }
@@ -262,7 +262,7 @@ public class Interaction {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[1].equals(pid) && !values[5].equals("true")) {
+                if (values[1].equals(pid) && values[5].equals("true")) {
                     count++;
                 }
             }
