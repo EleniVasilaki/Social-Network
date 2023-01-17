@@ -53,9 +53,8 @@ public class Feed {
       	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Go back \n"); 
 							option = Interface.input.nextInt();	
 							if (option == 1) {     		//Like Code		
-								System.out.println(postID);
+
 							 Interaction.like(userID, postID); 
-							 System.out.println("You liked the post \n");
 								
 							} else if (option == 2) {			//Count of Likes Code
 								numOfLikes = Interaction.likes(postID); 
@@ -78,7 +77,7 @@ public class Feed {
        				}
 
        			} else if (option == 3) {     		//Like Code		
-       				System.out.println(postID);
+
         			Interaction.like(userID, postID); 
 						
        			} else if (option == 4) {			//Count of Likes Code
