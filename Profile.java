@@ -16,8 +16,7 @@ public class Profile{
 	private String monthOfBirth;
 	private String yearOfBirth;
 	private String levelOfEducation;
-	public Profile () {
-	}
+
 	public Profile(String firstName, String lastName, String fieldOfInterest,
 	                String dayOfBirth, String monthOfBirth, String yearOfBirth,
 	                String levelOfEducation) {
@@ -29,47 +28,32 @@ public class Profile{
 		this.yearOfBirth = yearOfBirth;
 		this.levelOfEducation = levelOfEducation;
 	}
-	//Seters and Geters to handle the private values
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
+	//Getters to handle the private values
 	public String getFirstName() {
 		return firstName;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+
 	public String getLastName() {
 		return lastName;
 	}
-	public void setFieldOfInterest(String fieldOfInterest) {
-		this.fieldOfInterest = fieldOfInterest;
-	}
+
 	public String getFieldOfInterest() {
 		return fieldOfInterest;
 	}
-	public void setDayOfBirth(String dayOfBirth) {
-		this.dayOfBirth = dayOfBirth;
-	}
+
 	public String getDayOfBirth() {
 		return dayOfBirth;
 	}
-	public void setMonthOfBirth(String monthOfBirth) {
-		this.monthOfBirth = monthOfBirth;
-	}
+
 	public String getMonthOfBirth() {
 		return monthOfBirth;
 	}
-	public void setYearOfBirth(String yearOfBirth) {
-		this.yearOfBirth = yearOfBirth;
-	}
+
 	public String getYearOfBirth() {
 		return yearOfBirth;
 	}
-	public void setLevelOfEducation(String levelOfEducation) {
-		this.levelOfEducation = levelOfEducation;
-	}
+
 	public String getLevelOfEducation() {
 		return levelOfEducation;
 	}
@@ -262,7 +246,7 @@ public class Profile{
 	}
 
 	//changes the username
-	public void changeUsername(String userId) {
+	public static void changeUsername(String userId) {
 		String[] data = new String[3];
 		String currentLine;
 		boolean found = false;
@@ -308,62 +292,61 @@ public class Profile{
 	}
 
 	//verifies current password and changes it
-	public void changePassword(String userId) {
-			String[] data = new String[3];
-			String currentLine;
-			boolean found = false;
-			boolean pwans = false;
-			String oldLine = "";
-			String newLine = "";
-			String newPW;
-			String currPW;
-			try {
-				FileReader fr = new FileReader("users.txt");
-				BufferedReader br = new BufferedReader(fr);
-				while((currentLine = br.readLine()) != null) {
-					data = currentLine.split(",");
-					if(userId.equals(data[0])) {
-						found = true;
-						break;
-					}
+	public static void changePassword(String userId) {
+		String[] data = new String[3];
+		String currentLine;
+		boolean found = false;
+		boolean pwans = false;
+		String oldLine = "";
+		String newLine = "";
+		String newPW;
+		String currPW;
+		try {
+			FileReader fr = new FileReader("users.txt");
+			BufferedReader br = new BufferedReader(fr);
+			while((currentLine = br.readLine()) != null) {
+				data = currentLine.split(",");
+				if(userId.equals(data[0])) {
+					found = true;
+					break;
 				}
-				br.close();
-				if(found) {
-
-					System.out.println("Please enter current password:");
-					currPW = Interface.input.next();
-					if(currPW.equals(data[2])) {
-						System.out.println("Please enter new password:");
-		                newPW = Interface.input.next();
-		                pwans = true;
-					} else {
-						System.out.println("Wrong password");
-						System.out.println("You can't change the password");
-						newPW = data[2];
-					}
-	                oldLine = data[0] + "," + data[1] + "," + data[2];
-	                newLine = data[0] + "," + data[1] + "," + newPW;
-	                Scanner s2 = new Scanner(new File("users.txt"));
-	                StringBuffer buffer = new StringBuffer();
-	                while(s2.hasNextLine()) {
-						buffer.append(s2.nextLine() + System.lineSeparator());
-					}
-					String fileContents = buffer.toString();
-					s2.close();
-					fileContents = fileContents.replaceAll(oldLine, newLine);
-					FileWriter writer = new FileWriter("users.txt");
-					writer.append(fileContents);
-					writer.flush();
-					writer.close();
-					if(pwans) {
-						System.out.println("You have successfully changed your password");
-					}
-				}
-			} catch(FileNotFoundException e1) {
-				System.out.println("File Not Found");
-			} catch(IOException e2) {
-				System.out.println("Error");
 			}
-		}
+			br.close();
+			if(found) {
 
+				System.out.println("Please enter current password:");
+				currPW = Interface.input.next();
+				if(currPW.equals(data[2])) {
+					System.out.println("Please enter new password:");
+					newPW = Interface.input.next();
+					pwans = true;
+				} else {
+					System.out.println("Wrong password");
+					System.out.println("You can't change the password");
+					newPW = data[2];
+				}
+				oldLine = data[0] + "," + data[1] + "," + data[2];
+				newLine = data[0] + "," + data[1] + "," + newPW;
+				Scanner s2 = new Scanner(new File("users.txt"));
+				StringBuffer buffer = new StringBuffer();
+				while(s2.hasNextLine()) {
+					buffer.append(s2.nextLine() + System.lineSeparator());
+				}
+				String fileContents = buffer.toString();
+				s2.close();
+				fileContents = fileContents.replaceAll(oldLine, newLine);
+				FileWriter writer = new FileWriter("users.txt");
+				writer.append(fileContents);
+				writer.flush();
+				writer.close();
+				if(pwans) {
+					System.out.println("You have successfully changed your password");
+				}
+			}
+		} catch(FileNotFoundException e1) {
+			System.out.println("File Not Found");
+		} catch(IOException e2) {
+			System.out.println("Error");
+		}
+	}
 }

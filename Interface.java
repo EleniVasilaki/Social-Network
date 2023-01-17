@@ -73,8 +73,10 @@ public class Interface {
             
             System.out.println("""
                     1. Edit profile
-                    2. My posts
-                    3. Back
+                    2. Change username
+                    3. Change password
+                    4. My posts
+                    5. Back
                     """);
 
             option = Interface.input.nextInt();
@@ -84,9 +86,15 @@ public class Interface {
                     Profile.changeProfile(uid);
                     break;
                 case 2:
-                    obj.myPostsMenu(uid);
+                    Profile.changeUsername(uid);
                     break;
                 case 3:
+                    Profile.changePassword(uid);
+                    break;
+                case 4:
+                    obj.myPostsMenu(uid);
+                    break;
+                case 5:
                     mainMenu();
                     break;
                 default:

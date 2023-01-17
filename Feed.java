@@ -4,9 +4,7 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 
 public class Feed {
-   	
-	
-   	
+
     public static void feedMethod (String userID) {	
 		boolean firstTime = true;
 
