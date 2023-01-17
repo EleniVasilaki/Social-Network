@@ -167,15 +167,16 @@ public class Post {
             do{
 
                 if(userId.equals(editArrayList.get(i)) && postId.equals(editArrayList.get(i+1))){
-				
+				    String des = editArrayList.get(i+2);
+					String link = editArrayList.get(i+3);
 					flag = true;
                     System.out.println("Deleting post with id "+postId);
 					
-                    editArrayList.remove(i);
-                    editArrayList.remove(i+1);
-					editArrayList.remove(i+2);
-					editArrayList.remove(i+3);
-					System.out.println(editArrayList.size());
+                    editArrayList.remove(postId);
+                    editArrayList.remove(userId);
+					editArrayList.remove(des);
+					editArrayList.remove(link);
+				
 					try {
 						File oldfile = new File(".\\post.txt");
 						File newfile = new File("tempPost.txt");
