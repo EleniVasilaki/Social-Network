@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.util.Scanner;
 
 public class SignUp {
-
+	static int id = 1;
 	public String signUp() {
 
 		String path = "users.txt";
@@ -17,14 +17,14 @@ public class SignUp {
 		boolean x = true;
 		String username ="";
 		String line;
-		int id = 1;
+		
 		username = Interface.input.next();
 
 		try {
 
 			do
 			{
-				id = 1;
+				
 				FileReader fr = new FileReader("users.txt");
 				BufferedReader br = new BufferedReader(fr);
 				
@@ -52,6 +52,7 @@ public class SignUp {
 
 		System.out.println("Please enter a password");
 	    String password = Interface.input.next();
+		id += 1;
 
 		try {
 			File file = new File(path);
