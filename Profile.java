@@ -82,7 +82,8 @@ public class Profile{
 			System.out.println("Last name:");
 			String ln = Interface.input.next();
 			System.out.println("Field of interest:");
-			String fOFi = Interface.input.next();
+			Interface.input.nextLine();
+			String fOFi = Interface.input.nextLine();
 			System.out.println("Birthday:");
 			System.out.println("Day:");
 			String dOFb = Interface.input.next();
@@ -136,6 +137,7 @@ public class Profile{
 				pw.append(dataToBeSaved + "\n");
 				pw.close();
 				System.out.println("You have completed your Bio");
+				Interface.mainMenu();
 			} catch (IOException e1) {
 				System.out.println("An error has occurred");
 			}

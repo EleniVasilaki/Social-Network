@@ -6,9 +6,10 @@ import java.util.Scanner;
 
 public class Feed {
    	
-	static boolean firstTime = true;
+	
    	
     public static void feedMethod (String userID) {	
+		boolean firstTime = true;
 
     	try {
     		
@@ -46,14 +47,14 @@ public class Feed {
        				System.out.println(listOfStrings.get(i - 1) + "\n" + listOfStrings.get(i) + "\n");
        				
        				if (listOfStrings.get(i + 1) == null) { 
-						System.out.println("You have reached the end of the feed \n"); 
+						System.out.println("You have reached the end of the feed \n");
+
 						do {  					
       	 					System.out.println("1: Like \n" + "2. See number of likes \n" + "3. Go back \n"); 
 							option = Interface.input.nextInt();	
 							if (option == 1) {     		//Like Code		
-								System.out.println(postID);
+
 							 Interaction.like(userID, postID); 
-							 System.out.println("You liked the post \n");
 								
 							} else if (option == 2) {			//Count of Likes Code
 								numOfLikes = Interaction.likes(postID); 
@@ -76,10 +77,9 @@ public class Feed {
        				}
 
        			} else if (option == 3) {     		//Like Code		
-       				System.out.println(postID);
+
         			Interaction.like(userID, postID); 
-        			System.out.println("You liked the post \n");
-        			
+						
        			} else if (option == 4) {			//Count of Likes Code
 					numOfLikes = Interaction.likes(postID); 
        				System.out.println("Number of likes :" + numOfLikes + "\n");
