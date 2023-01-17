@@ -76,21 +76,20 @@ public class Post {
     //Edit Method
 	
     public void editPostMethod(String userId, String postId){
-		
 	    try{
             ArrayList<String> editArrayList = new ArrayList<String>();
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
-		    String line;
+			String line;
 			boolean flag = false;
             int i = 0;
             while((line = reader.readLine()) != null) {
        	        editArrayList.add(line);
        	    }
 			reader.close();
-
             do{
 
                 if(userId.equals(editArrayList.get(i)) && postId.equals(editArrayList.get(i+1))){
+				
 					flag = true;
                     System.out.println("1: Edit description \n" + "2: Edit link \n");
 
@@ -109,7 +108,12 @@ public class Post {
 								writer.write(str + System.lineSeparator());
 							   }
 							writer.close();
-							oldfile.delete();
+							if(oldfile.delete()){
+								System.out.println("File deleted");
+							} else {
+								System.out.println("file not deleted");
+							}
+
 							File dump = new File(".\\post.txt");
 							newfile.renameTo(dump);
 							System.out.println("New file created");
@@ -147,7 +151,7 @@ public class Post {
 
 				}
                 i = i + 4;
-            } while(editArrayList.get(i+4) != null || flag == true/*&& editArrayList.get(i) == userId && editArrayList.get(i+1) == postId */);
+            } while(editArrayList.get(i+1) != null || flag == true/*&& editArrayList.get(i) == userId && editArrayList.get(i+1) == postId */);
 
         } catch (IOException e) {
 			editPostMethod(userId, postId);
@@ -240,7 +244,7 @@ public class Post {
 				listOfStrings.add(strLine);
 			}
 		 	listOfStrings.add(null);
-			
+			reader.close();
 			//Print first post
 			while(listOfStrings.get(i) != null && first == true) {
 

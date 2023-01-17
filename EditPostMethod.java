@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.File;
-public void EditPostMethod(String userID, String postID) {
+public void EditPostMethod(String userId, String postId) {
 	Scanner in = new Scanner(System.in);
 	boolean flag = false;
 	try {
