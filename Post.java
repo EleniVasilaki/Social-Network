@@ -219,73 +219,6 @@ public class Post {
 		Post p = new Post();
 		p.myPostsMenu(userId);
     }
-    /*public static void deletePostMethod(String postId, String userId) {
-        //creating a temporary file to make changes in
-		String filepath = ".\\post.txt";
-        String tempFile = "tempPost.txt";
-        File oldFile = new File(filepath);
-        File newFile = new File(tempFile);
-
-        String currentLine;
-        int line = 0;
-
-
-        try
-		{   //boolean value true because we are adding to the existing file, not overwriting it
-            // creating objects to read and write to the file
-            FileWriter fw = new FileWriter(tempFile,true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            FileReader fr = new FileReader(filepath);
-            BufferedReader br = new BufferedReader(fr);
-            //while loop continues till there are no more lines to read to the file
-			
-            while((currentLine = br.readLine()) !=null)
-            {   
-                System.out.println("Reading Line " + line);
-                line++;
-
-                if (currentLine.contains(userId))
-				{    
-					String l = Integer.toString(line);
-		
-				    if (l.contains(postId)) {
-
-                        System.out.println("Found Post with ID " + postId);
-                        // Don't copy these 4 lines in the new file
-                        br.readLine();
-                        br.readLine();
-                        br.readLine();
-                        br.readLine();
-                   }
-				}
-                else
-                {
-                  // Copy the original line to the new file since we don't want to delete this
-                  pw.println(currentLine); 
-                }
-            
-            }
-
-            pw.flush();
-            pw.close();
-            fr.close();
-            br.close();
-            bw.close();
-            fw.close();
-
-            oldFile.delete();
-            File dump = new File(filepath);
-            newFile.renameTo(dump);
-            //System.out.println("New file created");
-        }  catch(Exception e){
-            System.out.println("An error has occurred.");
-
-        }
-		Post p = new Post();
-		p.myPostsMenu(userId);
-    }*/
 
 	//nextPost method
 	public void myPostsMenu(String userId) {
@@ -332,8 +265,21 @@ public class Post {
 							i += 4;
 						}
 						if (listOfStrings.get(i) == null) {
-							System.out.println("You have reached the end of your posts\n" + "Sending you back to your first post \n");
-							myPostsMenu(userId);
+							System.out.println("You have reached the end of your posts\n");
+							do {
+								System.out.println("1. Edit post \n" + "2. Delete post \n" + "3. Go back to profile \n");
+								answer = Interface.input.nextInt();
+								if (answer == 1) {
+									editPostMethod(userId, listOfStrings.get(i - 3));					
+								} else if (answer == 2) {
+									deletePostMethod(userId, listOfStrings.get(i - 3));
+								} else if (answer == 3) {
+									Interface.profileMenu();
+								} else {
+									System.out.println("Wrong input. Please enter 1, 2, or 3\n");
+								}
+							} while (answer != 1 && answer != 2 && answer != 3);
+							
 						}
 					} else if (answer == 4) {
 						Interface.profileMenu();
