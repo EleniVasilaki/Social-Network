@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.io.FileOutputStream;
 
 public class Profile{
@@ -16,6 +17,7 @@ public class Profile{
 	private String monthOfBirth;
 	private String yearOfBirth;
 	private String levelOfEducation;
+	static String cwd = Paths.get(".").toAbsolutePath().normalize().toString();
 
 	public Profile(String firstName, String lastName, String fieldOfInterest,
 	                String dayOfBirth, String monthOfBirth, String yearOfBirth,
@@ -111,7 +113,7 @@ public class Profile{
 			String d7 = p.getLevelOfEducation();
 
 			try {
-				File f = new File("ProfileData.txt");
+				File f = new File(cwd + "\\src\\main\\resources\\ProfileData.txt");
 				PrintWriter pw = new PrintWriter(new FileOutputStream(f,true));
 				String dataToBeSaved
 				= (d0 + "," + d1 + "," + d2 +
@@ -131,11 +133,11 @@ public class Profile{
 				String currentLine;
 				boolean found = false;
 				try {
-					FileReader fr = new FileReader("ProfileData.txt");
+					FileReader fr = new FileReader(cwd + "\\src\\main\\resources\\ProfileData.txt");
 					BufferedReader br = new BufferedReader(fr);
 					while((currentLine = br.readLine()) != null) {
 						data = currentLine.split(",");
-						if(userId.equals(data[0])) {
+						if(userId == data[0]) {
 							found = true;
 							break;
 						}
@@ -147,9 +149,7 @@ public class Profile{
 				} catch (IOException e1) {
 					System.out.println("An error has occurred");
 				}
-				if(!found) {
-					System.out.println("No records found");
-				}
+
 		return data;
 	}
 
@@ -226,7 +226,7 @@ public class Profile{
 			}
 		}
 		try {
-			Scanner sc = new Scanner(new File("ProfileData.txt"));
+			Scanner sc = new Scanner(new File(cwd + "\\src\\main\\resources\\ProfileData.txt"));
 			StringBuffer buffer = new StringBuffer();
 			while (sc.hasNextLine()) {
 				buffer.append(sc.nextLine()+System.lineSeparator());
@@ -234,7 +234,7 @@ public class Profile{
 			String fileContents = buffer.toString();
 			sc.close();
 			fileContents = fileContents.replaceAll(oldData, dataToBeSaved);
-			FileWriter writer = new FileWriter("ProfileData.txt");
+			FileWriter writer = new FileWriter(cwd + "\\src\\main\\resources\\ProfileData.txt");
 			writer.append(fileContents);
 			writer.flush();
 			writer.close();
@@ -254,7 +254,7 @@ public class Profile{
 		String newLine = "";
 		String newUN ;
 		try {
-			FileReader fr = new FileReader("users.txt");
+			FileReader fr = new FileReader(cwd + "\\src\\main\\resources\\users.txt");
 			BufferedReader br = new BufferedReader(fr);
 			while((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
@@ -270,7 +270,7 @@ public class Profile{
                 newUN = Interface.input.next();
                 oldLine = data[0] + "," + data[1] + "," + data[2];
                 newLine = data[0] + "," + newUN + "," + data[2];
-                Scanner s2 = new Scanner(new File("users.txt"));
+                Scanner s2 = new Scanner(new File(cwd + "\\src\\main\\resources\\users.txt"));
                 StringBuffer buffer = new StringBuffer();
                 while(s2.hasNextLine()) {
 					buffer.append(s2.nextLine() + System.lineSeparator());
@@ -278,12 +278,13 @@ public class Profile{
 				String fileContents = buffer.toString();
 				s2.close();
 				fileContents = fileContents.replaceAll(oldLine, newLine);
-				FileWriter writer = new FileWriter("users.txt");
+				FileWriter writer = new FileWriter(cwd + "\\src\\main\\resources\\users.txt");
 				writer.append(fileContents);
 				writer.flush();
 				System.out.println("You have successfully changed your username");
 				writer.close();
 			}
+			Interface.profileMenu();
 		} catch(FileNotFoundException e1) {
 			System.out.println("File Not Found");
 		} catch(IOException e2) {
@@ -302,7 +303,7 @@ public class Profile{
 		String newPW;
 		String currPW;
 		try {
-			FileReader fr = new FileReader("users.txt");
+			FileReader fr = new FileReader(cwd + "\\src\\main\\resources\\users.txt");
 			BufferedReader br = new BufferedReader(fr);
 			while((currentLine = br.readLine()) != null) {
 				data = currentLine.split(",");
@@ -327,7 +328,7 @@ public class Profile{
 				}
 				oldLine = data[0] + "," + data[1] + "," + data[2];
 				newLine = data[0] + "," + data[1] + "," + newPW;
-				Scanner s2 = new Scanner(new File("users.txt"));
+				Scanner s2 = new Scanner(new File(cwd + "\\src\\main\\resources\\users.txt"));
 				StringBuffer buffer = new StringBuffer();
 				while(s2.hasNextLine()) {
 					buffer.append(s2.nextLine() + System.lineSeparator());
@@ -335,7 +336,7 @@ public class Profile{
 				String fileContents = buffer.toString();
 				s2.close();
 				fileContents = fileContents.replaceAll(oldLine, newLine);
-				FileWriter writer = new FileWriter("users.txt");
+				FileWriter writer = new FileWriter(cwd + "\\src\\main\\resources\\users.txt");
 				writer.append(fileContents);
 				writer.flush();
 				writer.close();
@@ -343,6 +344,7 @@ public class Profile{
 					System.out.println("You have successfully changed your password");
 				}
 			}
+			Interface.profileMenu();
 		} catch(FileNotFoundException e1) {
 			System.out.println("File Not Found");
 		} catch(IOException e2) {

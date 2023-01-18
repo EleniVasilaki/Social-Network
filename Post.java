@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.LineNumberReader;
+import java.nio.file.Paths;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.io.File;
 
 public class Post {
+	static String cwd = Paths.get(".").toAbsolutePath().normalize().toString();
     //Create Post Method	
 	public void createPostMethod(String userID) {
 
@@ -26,7 +28,7 @@ public class Post {
         int option = Interface.input.nextInt();
         try {
 			
-			BufferedWriter writer = new BufferedWriter( new FileWriter(".\\post.txt", true));
+			BufferedWriter writer = new BufferedWriter( new FileWriter(cwd + "\\src\\main\\resources\\post.txt", true));
 
 			Interface.input.nextLine();
 			if (option == 1) {
@@ -69,7 +71,7 @@ public class Post {
     public static void editPostMethod(String userId, String postId){
 	    try{
             ArrayList<String> editArrayList = new ArrayList<String>();
-            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(cwd + "\\src\\main\\resources\\post.txt"), "UTF-8"));
 			String line;
 			boolean flag = false;
             int i = 0;
@@ -92,9 +94,9 @@ public class Post {
                         String des = Interface.input.nextLine();
                         editArrayList.set(i+2, des);
 						try {
-							File oldfile = new File(".\\post.txt");
-							File newfile = new File("newpost.txt");
-							BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
+							File oldfile = new File(cwd + "\\src\\main\\resources\\post.txt");
+							File newfile = new File(cwd + "\\src\\main\\resources\\newpost.txt");
+							BufferedWriter writer = new BufferedWriter( new FileWriter(cwd + "\\src\\main\\resources\\newpost.txt", true));
 					
 							for(String str: editArrayList) {
 								writer.write(str + System.lineSeparator());
@@ -106,7 +108,7 @@ public class Post {
 								System.out.println("file not deleted");
 							}
 
-							File dump = new File(".\\post.txt");
+							File dump = new File(cwd + "\\src\\main\\resources\\post.txt");
 							newfile.renameTo(dump);
 							System.out.println("New file created");
 						} catch (IOException e) {
@@ -119,16 +121,16 @@ public class Post {
                         String link = Interface.input.next();
                         editArrayList.set(i+3, link);
 						try {
-							File oldfile = new File(".\\post.txt");
-							File newfile = new File("newpost.txt");
-							BufferedWriter writer = new BufferedWriter( new FileWriter("newpost.txt", true));
+							File oldfile = new File(cwd + "\\src\\main\\resources\\post.txt");
+							File newfile = new File(cwd + "\\src\\main\\resources\\newpost.txt");
+							BufferedWriter writer = new BufferedWriter( new FileWriter(cwd + "\\src\\main\\resources\\newpost.txt", true));
 					
 							for(String str: editArrayList) {
 								writer.write(str + System.lineSeparator());
 							}
 							writer.close();
 							oldfile.delete();
-							File dump = new File(".\\post.txt");
+							File dump = new File(cwd + "\\src\\main\\resources\\post.txt");
 							newfile.renameTo(dump);
 							System.out.println("New file created");
 						} catch (IOException e) {
@@ -156,7 +158,7 @@ public class Post {
 	public static void deletePostMethod(String userId, String postId) {
 	    try{
             ArrayList<String> editArrayList = new ArrayList<String>();
-            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(cwd + "\\src\\main\\resources\\post.txt"), "UTF-8"));
 			String line;
 			boolean flag = false;
             int i = 0;
@@ -178,9 +180,9 @@ public class Post {
 					editArrayList.remove(link);
 				
 					try {
-						File oldfile = new File(".\\post.txt");
-						File newfile = new File("tempPost.txt");
-						BufferedWriter writer = new BufferedWriter( new FileWriter("tempPost.txt", true));
+						File oldfile = new File(cwd + "\\src\\main\\resources\\post.txt");
+						File newfile = new File(cwd + "\\src\\main\\resources\\tempPost.txt");
+						BufferedWriter writer = new BufferedWriter( new FileWriter(cwd + "\\src\\main\\resources\\tempPost.txt", true));
 					
 						for(String str: editArrayList) {
 							writer.write(str + System.lineSeparator());
@@ -192,7 +194,7 @@ public class Post {
 								System.out.println("file not deleted");
 						}
 
-						File dump = new File(".\\post.txt");
+						File dump = new File(cwd + "\\src\\main\\resources\\post.txt");
 						newfile.renameTo(dump);
 						System.out.println("New file created");
 						} catch (IOException e) {
@@ -218,7 +220,7 @@ public class Post {
 
 		try {
 
-			LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+			LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(cwd + "\\src\\main\\resources\\post.txt"), "UTF-8"));
         	ArrayList<String> listOfStrings = new ArrayList<String>();
 			int i = 0;
 			String strLine;

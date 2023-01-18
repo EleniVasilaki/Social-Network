@@ -1,9 +1,11 @@
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Feed {
+	static String cwd = Paths.get(".").toAbsolutePath().normalize().toString();
 
     public static void feedMethod (String userID) {	
 		boolean firstTime = true;
@@ -11,7 +13,7 @@ public class Feed {
     	try {
     		
         	boolean flag = false;
-        	LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(".\\post.txt"), "UTF-8"));
+        	LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(cwd + "\\src\\main\\resources\\post.txt"), "UTF-8"));
         	ArrayList<String> listOfStrings = new ArrayList<String>();
         	int i = 3;
 			String strLine;

@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.io.FileOutputStream;
 
 import java.util.Scanner;
@@ -10,8 +11,9 @@ import java.util.Scanner;
 public class SignUp {
 	static int id = 1;
 	public String signUp() {
-
-		String path = "users.txt";
+		String cwd = Paths.get(".").toAbsolutePath().normalize().toString();
+		String path = cwd + "\\src\\main\\resources\\users.txt";
+	
 
 		System.out.println("Please enter a username");
 		boolean x = true;
@@ -25,7 +27,7 @@ public class SignUp {
 			do
 			{
 				
-				FileReader fr = new FileReader("users.txt");
+				FileReader fr = new FileReader(cwd + "\\src\\main\\resources\\users.txt");
 				BufferedReader br = new BufferedReader(fr);
 				
 				while((line = br.readLine()) != null) {
