@@ -1,8 +1,10 @@
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Interaction {
-    static File fileName = new File(".\\interactions.txt"); // The file that the interactions data is saved.
+	static String cwd = Paths.get(".").toAbsolutePath().normalize().toString();
+    static File fileName = new File(cwd + "\\src\\main\\resources\\interactions.txt"); // The file that the interactions data is saved.
     static boolean fileCreated = false;
 
     public static void checkInteractions(String uid, String pid) {
@@ -155,13 +157,20 @@ public class Interaction {
         checkFile();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
+            boolean flag = false;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[1].equals(pid) && !values[3].equals("")) {
-                    System.out.println(values[3]);
-                } else {
-                    System.out.println("There are no comments");
-                }
+                if (values[1].equals(pid)) {
+                	if(!values[3].equals("")) {
+                		System.out.println(values[3]);
+                		flag = true;
+                	}
+                    
+                } 
+                    
+            }
+            if(flag == false) {
+            	System.out.println("There are no comments");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

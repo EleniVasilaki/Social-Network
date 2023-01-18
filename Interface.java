@@ -11,10 +11,8 @@ public class Interface {
         SignUp su = new SignUp();
 
         do {
-            System.out.println("""
-                    1. Signup
-                    2. Login
-                    """);
+            System.out.println("1. Signup");
+            System.out.println("2. Login");
 
             option = Interface.input.nextInt();
 
@@ -37,12 +35,10 @@ public class Interface {
         int option;
         Post post = new Post();
         do {
-            System.out.println("""
-                    1. Profile
-                    2. Feed
-                    3. Create post
-                    4. Log out
-                    """);
+            System.out.println("1. Profile");
+            System.out.println("2. Feed");
+            System.out.println("3. Create post");
+            System.out.println("4. Log out");
 
            option = Interface.input.nextInt();
 
@@ -71,13 +67,11 @@ public class Interface {
         do {
             Profile.viewProfile(uid);
             
-            System.out.println("""
-                    1. Edit profile
-                    2. Change username
-                    3. Change password
-                    4. My posts
-                    5. Back
-                    """);
+            System.out.println("1. Edit profile");
+            System.out.println("2. Change username");
+            System.out.println("3. Change password");
+            System.out.println("4. My posts");
+            System.out.println("5. Back");
 
             option = Interface.input.nextInt();
 
