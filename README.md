@@ -22,7 +22,7 @@ Thank you for choosing Σocience! We hope you enjoy using our app as much as we 
 
 
 
-## 𝗨𝗠𝗟 𝗗𝗶𝗮𝗴𝗿𝗮𝗺
+## UML Diagram
 
 ![image](https://user-images.githubusercontent.com/116200237/213125090-fab0757b-5695-42fa-9797-3d2facb59d05.png)
 
